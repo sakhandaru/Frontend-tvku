@@ -7,6 +7,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
+  CardFooter,
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "./ui/button";
@@ -15,15 +16,23 @@ export const NewsSection = () => {
   const dateTime = new Date();
   return (
     <Tabs defaultValue="trending" className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">Berita Terkini</h1>
-      <TabsList className="mb-4 bg-gray-200">
-        <TabsTrigger value="trending">Trending</TabsTrigger>
-        <TabsTrigger value="pendidikan">Pendidikan</TabsTrigger>
-        <TabsTrigger value="investasi">Investasi</TabsTrigger>
-        <TabsTrigger value="ekonomi">Ekonomi</TabsTrigger>
+      <h1 className="text-3xl font-bold mb-4">Berita Terkini</h1>
+      <TabsList className="h-[45px] gap-3 mb-2 bg-gray-200 font-semibold">
+        <TabsTrigger value="trending" className="text-lg">
+          Trending
+        </TabsTrigger>
+        <TabsTrigger value="pendidikan" className="text-lg">
+          Pendidikan
+        </TabsTrigger>
+        <TabsTrigger value="investasi" className="text-lg">
+          Investasi
+        </TabsTrigger>
+        <TabsTrigger value="ekonomi" className="text-lg">
+          Ekonomi
+        </TabsTrigger>
       </TabsList>
       <TabsContent value="trending">
-        <Card className="flex">
+        <Card className="flex mb-6">
           <Image
             src={img1}
             alt="bahlil"
@@ -60,6 +69,83 @@ export const NewsSection = () => {
             </CardContent>
           </div>
         </Card>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[
+            {
+              id: "1",
+              category: "Technology",
+              title: "New AI Model Breaks Performance Records",
+              description:
+                "Researchers have developed a new artificial intelligence model that outperforms previous benchmarks by a significant margin.",
+              time: "4 hours ago",
+            },
+            {
+              id: "2",
+              category: "Business",
+              title: "Market Rebounds After Recent Decline",
+              description:
+                "Global markets showed strong recovery signals today following last week's unexpected downturn.",
+              time: "6 hours ago",
+            },
+            {
+              id: "3",
+              category: "Politics",
+              title: "Senate Passes Infrastructure Bill",
+              description:
+                "After months of negotiation, the Senate has passed a comprehensive infrastructure bill aimed at rebuilding roads and bridges.",
+              time: "8 hours ago",
+            },
+            {
+              id: "4",
+              category: "Health",
+              title: "New Study Links Exercise to Longevity",
+              description:
+                "A comprehensive 20-year study has found strong correlations between regular physical activity and increased lifespan.",
+              time: "10 hours ago",
+            },
+            {
+              id: "5",
+              category: "Science",
+              title: "Astronomers Discover Earth-like Planet",
+              description:
+                "Scientists have identified a potentially habitable planet orbiting a star just 40 light-years from Earth.",
+              time: "12 hours ago",
+            },
+            {
+              id: "6",
+              category: "Entertainment",
+              title: "Award-Winning Film Director Announces New Project",
+              description:
+                "The acclaimed director revealed plans for an ambitious new film set to begin production next year.",
+              time: "1 day ago",
+            },
+          ].map((article) => (
+            <Card key={article.id} className="flex flex-col h-full">
+              <CardHeader className="pb-2">
+                <div className="flex items-center justify-between mb-1">
+                  <div className="flex items-center text-xs text-muted-foreground">
+                    <span>{article.time}</span>
+                  </div>
+                </div>
+                <CardTitle className="text-lg">{article.title}</CardTitle>
+              </CardHeader>
+              <CardContent className="flex-grow">
+                <CardDescription className="text-sm">
+                  {article.description}
+                </CardDescription>
+              </CardContent>
+              <CardFooter className="flex justify-between items-center pt-2 border-t">
+                <span className="text-xs font-bold">
+                  {article.category}
+                </span>
+                <span className="text-xs font-medium">
+                  {dateTime.toLocaleDateString()} -{" "}
+                  {dateTime.toLocaleTimeString()}{" "}
+                </span>
+              </CardFooter>
+            </Card>
+          ))}
+        </div>
       </TabsContent>
       <TabsContent value="pendidikan">
         <div className="p-8 text-center">
@@ -69,7 +155,6 @@ export const NewsSection = () => {
           </p>
         </div>
       </TabsContent>
-
       <TabsContent value="investasi">
         <div className="p-8 text-center">
           <h3 className="text-xl font-medium mb-2">Technology News</h3>
@@ -78,7 +163,6 @@ export const NewsSection = () => {
           </p>
         </div>
       </TabsContent>
-
       <TabsContent value="ekonomi">
         <div className="p-8 text-center">
           <h3 className="text-xl font-medium mb-2">Business News</h3>
