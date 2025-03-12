@@ -1,18 +1,19 @@
 import Carousel from "@/components/carousel";
-import Header from "@/components/header";
+import { NewsSection } from "@/components/newsSection";
 import Schedule from "@/components/schedule";
 
 export default function Home() {
   return (
     <div className="bg-gray-100">
-      <Header/>
       <div className="z-0">
-        <Carousel/>
+        <Carousel />
       </div>
-      <div className="flex justify-center items-center my-20">
-        <Schedule/>
+      <div className="justify-items-center my-15">
+        <Schedule />
       </div>
-
+      <div>
+        <NewsSection />
+      </div>
     </div>
   );
 }

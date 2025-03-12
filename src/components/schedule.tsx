@@ -4,7 +4,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
-import { SwiperNavButtons } from "./swiperNavButton";
+import { useRef } from "react";
+import type { Swiper as SwiperType } from "swiper";
 
 const schedules = [
   { time: "06:15 WIB", title: "Status Selebriti" },
@@ -20,31 +21,32 @@ const schedules = [
 ];
 
 const Schedule = () => {
+  const swiperRef = useRef<SwiperType | null>(null);
+
   return (
-    <div>
-      <div className="flex item-center px-3 py-2 bg-white rounded-xl">
-        <div className="font-black px-5 text-blue-800">
-          TODAY <br /> SCHEDULE
-        </div>
-        <div className="">
-          <Swiper
-            modules={[Navigation, Pagination]}
-            spaceBetween={15}
-            slidesPerView={"auto"}
-          >
-            <div className="w-[200px]">
-              {schedules.map((schedule, index) => (
-                <SwiperSlide key={index} className="!w-auto">
-                  <div className="px-6 border-r text-gray-800">
-                    <p className="text-sm">{schedule.time}</p>
-                    <p className="font-bold">{schedule.title}</p>
-                  </div>
-                </SwiperSlide>
-              ))}
+    <div className="flex justify-items-center w-10/12 px-3 py-2 bg-white rounded-xl">
+      <div className="font-black px-5 text-blue-800">
+        TODAY <br /> SCHEDULE
+      </div>
+      <Swiper
+        modules={[Navigation, Pagination]}
+        spaceBetween={1}
+        slidesPerView={"auto"}
+        onSwiper={(swiper) => (swiperRef.current = swiper)}
+        className="!w-full"
+      >
+        {schedules.map((schedule, index) => (
+          <SwiperSlide key={index} className="!w-auto">
+            <div className="px-6 border-r text-gray-800">
+              <p className="text-sm">{schedule.time}</p>
+              <p className="font-bold">{schedule.title}</p>
             </div>
-              <SwiperNavButtons />
-          </Swiper>
-        </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+      <div className="flex gap-5 pl-5">
+        <button onClick={() => swiperRef.current?.slidePrev()}>Prev</button>
+        <button onClick={() => swiperRef.current?.slideNext()}>Next</button>
       </div>
     </div>
   );
