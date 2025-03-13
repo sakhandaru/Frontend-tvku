@@ -24,7 +24,7 @@ const Schedule = () => {
   const swiperRef = useRef<SwiperType | null>(null);
 
   return (
-    <div className="flex justify-items-center w-10/12 px-3 py-2 bg-white rounded-xl">
+    <div className="flex justify-center my-15 mx-auto w-10/12 px-3 py-2 bg-white rounded-xl">
       <div className="font-black px-5 text-blue-800">
         TODAY <br /> SCHEDULE
       </div>

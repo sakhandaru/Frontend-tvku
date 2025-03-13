@@ -15,22 +15,24 @@ import { Button } from "./ui/button";
 export const NewsSection = () => {
   const dateTime = new Date();
   return (
-    <Tabs defaultValue="trending" className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-4">Berita Terkini</h1>
-      <TabsList className="h-[45px] gap-3 mb-2 bg-gray-200 font-semibold">
-        <TabsTrigger value="trending" className="text-lg">
-          Trending
-        </TabsTrigger>
-        <TabsTrigger value="pendidikan" className="text-lg">
-          Pendidikan
-        </TabsTrigger>
-        <TabsTrigger value="investasi" className="text-lg">
-          Investasi
-        </TabsTrigger>
-        <TabsTrigger value="ekonomi" className="text-lg">
-          Ekonomi
-        </TabsTrigger>
-      </TabsList>
+    <Tabs defaultValue="trending" className="container mx-auto">
+      <div className="flex justify-between items-center mb-4">
+        <h1 className="text-3xl font-bold">Berita Terkini</h1>
+        <TabsList className="h-[45px] gap-3 mb-2 bg-gray-200 font-semibold">
+          <TabsTrigger value="trending" className="text-lg">
+            Trending
+          </TabsTrigger>
+          <TabsTrigger value="pendidikan" className="text-lg">
+            Pendidikan
+          </TabsTrigger>
+          <TabsTrigger value="investasi" className="text-lg">
+            Investasi
+          </TabsTrigger>
+          <TabsTrigger value="ekonomi" className="text-lg">
+            Ekonomi
+          </TabsTrigger>
+        </TabsList>
+      </div>
       <TabsContent value="trending">
         <Card className="flex mb-6">
           <Image
@@ -135,9 +137,7 @@ export const NewsSection = () => {
                 </CardDescription>
               </CardContent>
               <CardFooter className="flex justify-between items-center pt-2 border-t">
-                <span className="text-xs font-bold">
-                  {article.category}
-                </span>
+                <span className="text-xs font-bold">{article.category}</span>
                 <span className="text-xs font-medium">
                   {dateTime.toLocaleDateString()} -{" "}
                   {dateTime.toLocaleTimeString()}{" "}

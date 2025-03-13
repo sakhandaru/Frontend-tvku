@@ -11,29 +11,25 @@ import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import "swiper/css/scrollbar";
 
 function Carousel() {
   return (
-    <section>
       <Swiper
         modules={[Navigation, Pagination]}
         spaceBetween={0}
         slidesPerView={1}
         navigation
         pagination={{ clickable: true }}
-        scrollbar={{ draggable: true }}
         onSwiper={(swiper) => console.log(swiper)}
         onSlideChange={() => console.log("slide change")}
       >
-        <SwiperSlide>
+        <SwiperSlide >
           <Image src={img1} alt="gambar1" />
         </SwiperSlide>
         <SwiperSlide>
           <Image src={img2} alt="gambar2" />
         </SwiperSlide>
       </Swiper>
-    </section>
   );
 }
 
