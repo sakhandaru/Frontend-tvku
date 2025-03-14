@@ -15,7 +15,7 @@ import { Button } from "./ui/button";
 export const NewsSection = () => {
   const dateTime = new Date();
   return (
-    <Tabs defaultValue="trending" className="container mx-auto">
+    <Tabs defaultValue="trending" className="container mx-auto mb-15">
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-3xl font-bold">Berita Terkini</h1>
         <TabsList className="h-[45px] gap-3 mb-2 bg-gray-200 font-semibold">

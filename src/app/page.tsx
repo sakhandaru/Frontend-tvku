@@ -10,11 +10,11 @@ export default function Home() {
       <div className="z-0">
         <Carousel />
       </div>
-      <div className="justify-items-center">
+      <div className="">
         <Schedule />
+        <NewsSection />
+        <Program />
       </div>
-      <NewsSection />
-      <Program />
     </div>
   );
 }
