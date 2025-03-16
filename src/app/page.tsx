@@ -2,7 +2,6 @@ import Carousel from "@/components/carousel";
 import { NewsSection } from "@/components/newsSection";
 import { Program } from "@/components/program";
 import Schedule from "@/components/schedule";
-import Image from "next/image";
 
 export default function Home() {
   return (
