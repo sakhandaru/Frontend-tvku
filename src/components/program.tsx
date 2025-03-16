@@ -4,7 +4,7 @@ import React from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
+import { Navigation, Autoplay } from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -75,13 +75,18 @@ export const Program = () => {
       </div>
       <div className="py-8">
         <Swiper
-          modules={[Navigation]}
+          modules={[Navigation, Autoplay]}
           spaceBetween={20}
           slidesPerView={3}
           navigation={{
             nextEl: ".hero-next",
             prevEl: ".hero-prev",
           }}
+          autoplay={{
+            delay: 4000,
+            disableOnInteraction: false,
+          }}
+          loop={true}
           breakpoints={{
             640: {
               slidesPerView: 3,
@@ -109,23 +114,22 @@ export const Program = () => {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
 
-                  <div className="absolute bottom-0 left-0 w-full p-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <h4 className="text-white font-bold mb-1 truncate">
+                  <div className="absolute bottom-10 left-0 w-full p-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <h4 className="text-white font-bold mb-1 truncate text-2xl">
                       {program.title}
                     </h4>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <span className="bg-primary px-1.5 py-0.5 rounded text-[10px] text-white font-medium">
+                        <span className="bg-primary px-1.5 py-0.5 rounded text-[15px] text-white font-medium">
                           {program.genre}
                         </span>
                         <div className="flex items-center gap-0.5">
                           <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
-                          <span className="text-xs text-white">
+                          <span className="text-[15px] text-white">
                             {program.rating}
                           </span>
                         </div>
                       </div>
-                      <button className="flex items-center justify-center w-7 h-7 bg-white/20 hover:bg-white/30 rounded-full text-white"></button>
                     </div>
                   </div>
                 </div>
