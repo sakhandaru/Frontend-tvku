@@ -76,7 +76,7 @@ export const Program = () => {
       <div className="py-8">
         <Swiper
           modules={[Navigation]}
-          spaceBetween={16}
+          spaceBetween={20}
           slidesPerView={3}
           navigation={{
             nextEl: ".hero-next",
