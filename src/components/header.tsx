@@ -20,8 +20,8 @@ export const Header = () => {
   }, []);
 
   return (
-    <div className={`sticky top-0 w-full transition-all p-4 duration-500 bg-white z-10 ${
-      scroll ? "bg-white/10 backdrop-blur-lg shadow-md" : "bg-transparent"
+    <div className={`fixed top-0 w-full transition-all p-2 duration-500 bg-white/20 backdrop-blur-lg shadow-md z-10 ${
+      scroll ? "bg-white/100" : "bg-transparent"
     }`}>
       <header
         className="container mx-auto flex items-center justify-between "
