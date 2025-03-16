@@ -9,9 +9,12 @@ export default function Home() {
       <div className="z-0">
         <Carousel />
       </div>
+
+      {/* need to fix  */}
       <div className="justify-items-center">
         <Schedule />
       </div>
+      
       <NewsSection />
       <Program />
     </div>
