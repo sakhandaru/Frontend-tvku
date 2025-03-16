@@ -151,7 +151,7 @@ export const NewsSection = () => {
         <div className="p-8 text-center">
           <h3 className="text-xl font-medium mb-2">Politics News</h3>
           <p className="text-muted-foreground">
-            Switch to the "All News" tab to see the full demo content.
+            Switch to the All News tab to see the full demo content.
           </p>
         </div>
       </TabsContent>
@@ -159,7 +159,7 @@ export const NewsSection = () => {
         <div className="p-8 text-center">
           <h3 className="text-xl font-medium mb-2">Technology News</h3>
           <p className="text-muted-foreground">
-            Switch to the "All News" tab to see the full demo content.
+            Switch to the All News tab to see the full demo content.
           </p>
         </div>
       </TabsContent>
@@ -167,7 +167,7 @@ export const NewsSection = () => {
         <div className="p-8 text-center">
           <h3 className="text-xl font-medium mb-2">Business News</h3>
           <p className="text-muted-foreground">
-            Switch to the "All News" tab to see the full demo content.
+            Switch to the All News tab to see the full demo content.
           </p>
         </div>
       </TabsContent>

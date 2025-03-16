@@ -2,7 +2,6 @@ import Carousel from "@/components/carousel";
 import { NewsSection } from "@/components/newsSection";
 import { Program } from "@/components/program";
 import Schedule from "@/components/schedule";
-import Image from "next/image";
 
 export default function Home() {
   return (
@@ -10,9 +9,12 @@ export default function Home() {
       <div className="z-0">
         <Carousel />
       </div>
+
+      {/* need to fix  */}
       <div className="justify-items-center">
         <Schedule />
       </div>
+      
       <NewsSection />
       <Program />
     </div>
