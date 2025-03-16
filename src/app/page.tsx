@@ -14,7 +14,6 @@ export default function Home() {
       <div className="justify-items-center">
         <Schedule />
       </div>
-      
       <NewsSection />
       <Program />
     </div>
