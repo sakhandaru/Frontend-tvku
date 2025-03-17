@@ -32,7 +32,7 @@ const Navbar = () => {
           alt="tvku logo"
         />
         <nav>
-          <ul className="flex gap-8 font-semibold text-base text-gray-700">
+          <ul className="flex gap-8 font-bold text-base text-gray-900">
             <li>
               <Link href="/">Home</Link>
             </li>
