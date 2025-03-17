@@ -15,30 +15,30 @@ import { Button } from "./ui/button";
 export const NewsSection = () => {
   const dateTime = new Date();
   return (
-    <Tabs defaultValue="trending" className="container mx-auto">
-      <div className="flex justify-between items-center mb-4">
+    <Tabs defaultValue="trending" className="md:container md:mx-auto">
+      <div className="grid justify-center gap-3 md:flex md:justify-between">
         <h1 className="text-3xl font-bold">Berita Terkini</h1>
-        <TabsList className="h-[45px] gap-3 mb-2 bg-gray-200 font-semibold">
-          <TabsTrigger value="trending" className="text-lg">
+        <TabsList className="h-[40px] md:h-[45px] gap-3 mb-2 bg-gray-200 font-semibold">
+          <TabsTrigger value="trending" className="md:text-lg">
             Trending
           </TabsTrigger>
-          <TabsTrigger value="pendidikan" className="text-lg">
+          <TabsTrigger value="pendidikan" className="md:text-lg">
             Pendidikan
           </TabsTrigger>
-          <TabsTrigger value="investasi" className="text-lg">
+          <TabsTrigger value="investasi" className="md:text-lg">
             Investasi
           </TabsTrigger>
-          <TabsTrigger value="ekonomi" className="text-lg">
+          <TabsTrigger value="ekonomi" className="md:text-lg">
             Ekonomi
           </TabsTrigger>
         </TabsList>
       </div>
       <TabsContent value="trending">
-        <Card className="flex mb-6">
+        <Card className="container md:flex md:mx-auto mb-6">
           <Image
             src={img1}
             alt="bahlil"
-            className="w-[700px] h-[400px] object-fill rounded-l-xl"
+            className="h-62 w-full md:h-full md:w-full object-cover rounded-t-xl md:rounded-l-xl"
           ></Image>
           <div className="flex flex-col justify-between items-center">
             <CardHeader>
@@ -48,10 +48,10 @@ export const NewsSection = () => {
                 </h2>
               </CardTitle>
             </CardHeader>
-            <CardContent className="flex flex-col justify-between flex-1">
+            <CardContent className="flex flex-col justify-between flex-1 gap-10">
               <div>
-                <CardDescription>
-                  <p className="text-muted-foreground mb-6">
+                <CardDescription >
+                  <p className="text-muted-foreground">
                     World leaders gathered to announce ambitious new targets for
                     reducing carbon emissions and funding renewable energy
                     projects in developing nations.
