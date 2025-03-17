@@ -50,8 +50,8 @@ export const NewsSection = () => {
             </CardHeader>
             <CardContent className="flex flex-col justify-between flex-1 gap-10">
               <div>
-                <CardDescription >
-                  <p className="text-muted-foreground">
+                <CardDescription>
+                  <p className="text-muted-foreground mb-6">
                     World leaders gathered to announce ambitious new targets for
                     reducing carbon emissions and funding renewable energy
                     projects in developing nations.
