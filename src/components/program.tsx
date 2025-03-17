@@ -69,9 +69,9 @@ const programTelevisi = [
 ];
 export const Program = () => {
   return (
-    <div className="container mx-auto my-10">
+    <div className="container mx-auto mt-15">
       <div >
-        <h1 className="text-3xl font-bold mb-4">Program</h1>
+        <h1 className="text-3xl font-bold">Program</h1>
       </div>
       <div className="py-8">
         <Swiper
