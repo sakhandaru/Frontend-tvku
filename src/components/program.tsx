@@ -69,7 +69,7 @@ const programTelevisi = [
 ];
 export const Program = () => {
   return (
-    <div className="container mx-auto my-15">
+    <div className="container mx-auto my-10">
       <div >
         <h1 className="text-3xl font-bold mb-4">Program</h1>
       </div>
