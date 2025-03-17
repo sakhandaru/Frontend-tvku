@@ -1,3 +1,4 @@
+import { About } from "@/components/about";
 import Carousel from "@/components/carousel";
 import { NewsSection } from "@/components/newsSection";
 import { Program } from "@/components/program";
@@ -9,13 +10,13 @@ export default function Home() {
       <div className="z-0">
         <Carousel />
       </div>
-
       {/* need to fix  */}
       <div className="justify-items-center">
         <Schedule />
       </div>
       <NewsSection />
       <Program />
+      <About />
     </div>
   );
 }
