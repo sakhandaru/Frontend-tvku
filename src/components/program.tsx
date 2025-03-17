@@ -69,9 +69,9 @@ const programTelevisi = [
 ];
 export const Program = () => {
   return (
-    <div>
-      <div className="container mx-auto">
-        <h1 className="text-3xl font-bold mt-4">Program</h1>
+    <div className="container mx-auto my-15">
+      <div >
+        <h1 className="text-3xl font-bold mb-4">Program</h1>
       </div>
       <div className="py-8">
         <Swiper
@@ -120,12 +120,12 @@ export const Program = () => {
                     </h4>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <span className="bg-primary px-1.5 py-0.5 rounded text-[15px] text-white font-medium">
+                        <span className="bg-primary px-1.5 py-0.5 rounded text-[10px] text-white font-medium">
                           {program.genre}
                         </span>
                         <div className="flex items-center gap-0.5">
-                          <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
-                          <span className="text-[15px] text-white">
+                          <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                          <span className="text-[10px] text-white">
                             {program.rating}
                           </span>
                         </div>
