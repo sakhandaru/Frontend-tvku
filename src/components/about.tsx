@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export const About = () => {
   return (
-    <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-10 items-center m-16">
+    <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-10 items-center m-10">
       <div className="container mx-auto">
         <h2 className="text-2xl md:text-4xl font-bold mb-6">Tentang TVKU</h2>
         <p className="text-slate-600 mb-8 text-base md:text-lg">
