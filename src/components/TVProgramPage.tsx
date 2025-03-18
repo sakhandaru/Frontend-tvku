@@ -109,6 +109,8 @@ export default function TVProgramPage() {
                 <Image
                   src={program.image}
                   alt={program.title}
+                  width={300}
+                  height={200}
                   className="w-full h-48 object-cover rounded-t-xl"
                 />
                 <h3 className="absolute top-3 left-4 text-black font-semibold text-lg px-2 py-1 rounded-md">
