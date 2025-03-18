@@ -1,5 +1,6 @@
 import { About } from "@/components/about";
 import Carousel from "@/components/carousel";
+import { CarouselCompanyLogo } from "@/components/carouselCompanyLogo";
 import { NewsSection } from "@/components/newsSection";
 import { Program } from "@/components/program";
 import Schedule from "@/components/schedule";
@@ -19,6 +20,7 @@ export default function Home() {
       <Program />
       <About />
       <ValueSection />
+      <CarouselCompanyLogo />
     </div>
   );
 }
