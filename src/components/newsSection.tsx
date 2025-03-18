@@ -38,7 +38,7 @@ export const NewsSection = () => {
           <Image
             src={img1}
             alt="bahlil"
-            className="h-62 w-full md:h-full md:w-full object-cover rounded-t-xl md:rounded-l-xl"
+            className=" object-cover rounded-t-xl md:rounded-t-none md:rounded-l-xl"
           ></Image>
           <div className="flex flex-col justify-between items-center">
             <CardHeader>
