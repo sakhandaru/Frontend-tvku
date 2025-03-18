@@ -6,6 +6,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { useRef } from "react";
 import type { Swiper as SwiperType } from "swiper";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const schedules = [
   { time: "06:15 WIB", title: "Status Selebriti" },
@@ -24,29 +25,39 @@ const Schedule = () => {
   const swiperRef = useRef<SwiperType | null>(null);
 
   return (
-    <div className="flex justify-center my-15 mx-auto w-10/12 px-3 py-2 bg-white rounded-xl">
-      <div className="font-black px-5 text-blue-800">
-        TODAY <br /> SCHEDULE
-      </div>
-      <Swiper
-        modules={[Navigation, Pagination]}
-        spaceBetween={1}
-        slidesPerView={"auto"}
-        onSwiper={(swiper) => (swiperRef.current = swiper)}
-        className="!w-full"
-      >
-        {schedules.map((schedule, index) => (
-          <SwiperSlide key={index} className="!w-auto">
-            <div className="px-6 border-r text-gray-800">
-              <p className="text-sm">{schedule.time}</p>
-              <p className="font-bold">{schedule.title}</p>
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-      <div className="flex gap-5 pl-5">
-        <button onClick={() => swiperRef.current?.slidePrev()}>Prev</button>
-        <button onClick={() => swiperRef.current?.slideNext()}>Next</button>
+    <div className="container mx-auto justify-center my-15 px-3 py-2 bg-white rounded-xl">
+      <div className="flex">
+        <div className="font-black px-5 text-blue-800">
+          TODAY <br /> SCHEDULE
+        </div>
+        <Swiper
+          modules={[Navigation, Pagination]}
+          spaceBetween={1}
+          slidesPerView={"auto"}
+          onSwiper={(swiper) => (swiperRef.current = swiper)}
+          className="!w-full"
+        >
+          {schedules.map((schedule, index) => (
+            <SwiperSlide key={index} className="!w-auto">
+              <div className="px-6 border-r text-gray-800">
+                <p className="text-sm">{schedule.time}</p>
+                <p className="font-bold">{schedule.title}</p>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+        <div className="flex gap-5 pl-5 items-center">
+          <ChevronLeft
+            size={30}
+            className="cursor-pointer"
+            onClick={() => swiperRef.current?.slidePrev()}
+          />
+          <ChevronRight
+            size={30}
+            className="cursor-pointer"
+            onClick={() => swiperRef.current?.slideNext()}
+          />
+        </div>
       </div>
     </div>
   );
