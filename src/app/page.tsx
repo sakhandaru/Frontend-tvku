@@ -3,6 +3,7 @@ import Carousel from "@/components/carousel";
 import { NewsSection } from "@/components/newsSection";
 import { Program } from "@/components/program";
 import Schedule from "@/components/schedule";
+import { ValueSection } from "@/components/valueSection";
 
 export default function Home() {
   return (
@@ -11,12 +12,13 @@ export default function Home() {
         <Carousel />
       </div>
       {/* need to fix  */}
-      <div className="justify-items-center">
+      <div>
         <Schedule />
       </div>
       <NewsSection />
       <Program />
       <About />
+      <ValueSection />
     </div>
   );
 }

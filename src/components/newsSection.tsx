@@ -16,8 +16,10 @@ export const NewsSection = () => {
   const dateTime = new Date();
   return (
     <Tabs defaultValue="trending" className="md:container md:mx-auto">
-      <div className="grid justify-center gap-3 md:flex md:justify-between">
-        <h1 className="text-3xl font-bold">Berita Terkini</h1>
+      <div className="grid justify-between gap-3 md:flex md:justify-between">
+        <h1 className="text-2xl md:text-4xl font-bold mb-6">
+          Berita Terkini
+        </h1>
         <TabsList className="h-[40px] md:h-[45px] gap-3 mb-2 bg-gray-200 font-semibold">
           <TabsTrigger value="trending" className="md:text-lg">
             Trending
@@ -38,7 +40,7 @@ export const NewsSection = () => {
           <Image
             src={img1}
             alt="bahlil"
-            className=" object-cover rounded-t-xl md:rounded-t-none md:rounded-l-xl"
+            className="w-full object-cover rounded-t-xl md:rounded-t-none md:rounded-l-xl"
           ></Image>
           <div className="flex flex-col justify-between items-center">
             <CardHeader>
