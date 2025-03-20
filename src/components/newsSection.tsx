@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import img1 from "../../public/images/bahlil.jpeg";
+import parse from "html-react-parser";
 import {
   Card,
   CardContent,
@@ -12,6 +13,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "./ui/button";
 
+
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 interface Inewsdata {
@@ -22,7 +24,7 @@ interface Inewsdata {
   kategori: string;
 }
 
-export const NewsSection = async() => {
+export const NewsSection = async () => {
   const dateTime = new Date();
 
   const response = await fetch(`${BASE_URL}/berita`);
@@ -54,20 +56,18 @@ export const NewsSection = async() => {
             alt="bahlil"
             className="w-full object-cover rounded-t-xl md:rounded-t-none md:rounded-l-xl"
           ></Image>
-          <div className="flex flex-col justify-between items-center">
+          <div className="flex flex-col justify-between">
             <CardHeader>
               <CardTitle>
-                <h2 className="text-3xl font-bold">
-                  {newsdatas[0].judul}
-                </h2>
+                <h2 className="text-3xl font-bold">{newsdatas[0].judul}</h2>
               </CardTitle>
             </CardHeader>
             <CardContent className="flex flex-col justify-between flex-1 gap-10">
               <div>
                 <CardDescription>
-                  <p className="text-muted-foreground mb-6">
-                    {newsdatas[0].deskripsi}
-                  </p>
+                  <span className="text-muted-foreground mb-6">
+                    {parse(newsdatas[0].deskripsi)}
+                  </span>
                 </CardDescription>
                 <Button>Read More</Button>
               </div>
@@ -84,56 +84,32 @@ export const NewsSection = async() => {
           </div>
         </Card>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {newsdatas.slice(1,7).map((newsdata) => {
-            return(
+          {newsdatas.slice(1, 7).map((newsdata) => {
+            return (
               <Card key={newsdata.id} className="flex flex-col h-full">
-              <CardHeader className="pb-2">
-                <div className="flex items-center justify-between mb-1">
-                  <div className="flex items-center text-xs text-muted-foreground">
-                    <span>{newsdata.waktu}</span>
+                <CardHeader className="pb-2">
+                  <div className="flex items-center justify-between mb-1">
+                    <div className="flex items-center text-xs text-muted-foreground">
+                      <span>{newsdata.waktu}</span>
+                    </div>
                   </div>
-                </div>
-                <CardTitle className="text-lg">{newsdata.judul}</CardTitle>
-              </CardHeader>
-              <CardContent className="flex-grow">
-                <CardDescription className="text-sm">
-                  {newsdata.deskripsi}
-                </CardDescription>
-              </CardContent>
-              <CardFooter className="flex justify-between items-center pt-2 border-t">
-                <span className="text-xs font-bold">TRENDING</span>
-                <span className="text-xs font-medium">
-                  {dateTime.toLocaleDateString()} -{" "}
-                  {dateTime.toLocaleTimeString()}{" "}
-                </span>
-              </CardFooter>
-            </Card>
-            )
+                  <CardTitle className="text-lg">{newsdata.judul}</CardTitle>
+                </CardHeader>
+                <CardContent className="flex-grow">
+                  <CardDescription className="text-sm">
+                    {parse(newsdata.deskripsi)}
+                  </CardDescription>
+                </CardContent>
+                <CardFooter className="flex justify-between items-center pt-2 border-t">
+                  <span className="text-xs font-bold">TRENDING</span>
+                  <span className="text-xs font-medium">
+                    {dateTime.toLocaleDateString()} -{" "}
+                    {dateTime.toLocaleTimeString()}{" "}
+                  </span>
+                </CardFooter>
+              </Card>
+            );
           })}
-        </div>
-      </TabsContent>
-      <TabsContent value="pendidikan">
-        <div className="p-8 text-center">
-          <h3 className="text-xl font-medium mb-2">Politics News</h3>
-          <p className="text-muted-foreground">
-            Switch to the All News tab to see the full demo content.
-          </p>
-        </div>
-      </TabsContent>
-      <TabsContent value="investasi">
-        <div className="p-8 text-center">
-          <h3 className="text-xl font-medium mb-2">Technology News</h3>
-          <p className="text-muted-foreground">
-            Switch to the All News tab to see the full demo content.
-          </p>
-        </div>
-      </TabsContent>
-      <TabsContent value="ekonomi">
-        <div className="p-8 text-center">
-          <h3 className="text-xl font-medium mb-2">Business News</h3>
-          <p className="text-muted-foreground">
-            Switch to the All News tab to see the full demo content.
-          </p>
         </div>
       </TabsContent>
     </Tabs>
