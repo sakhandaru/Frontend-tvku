@@ -8,13 +8,13 @@ import Image from "next/image";
 
 export const CarouselCompanyLogo = () => {
   return (
-    <div className="container mx-auto my-16">
+    <div className="container mx-auto my-20">
       <h1 className="flex justify-center text-xl md:text-4xl font-bold mb-10">
         KERJASAMA YANG TERJALIN DENGAN TVKU
       </h1>
       <Swiper
         modules={[Navigation, Autoplay]}
-        slidesPerView={6}
+        slidesPerView={5}
         breakpoints={{
             320: {
                 slidesPerView: 1,
@@ -45,7 +45,6 @@ export const CarouselCompanyLogo = () => {
           disableOnInteraction: false,
         }}
         loop={true}
-        className=""
       >
         <SwiperSlide>
           <Image

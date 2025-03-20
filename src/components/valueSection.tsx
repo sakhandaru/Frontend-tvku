@@ -4,7 +4,6 @@ import { HeartHandshake, Shrub, ChartNoAxesCombined } from "lucide-react";
 
 export const ValueSection = () => {
   return (
-    // className="coloumn-3 bg-red md:gap-10 md:grid md:grid-cols-3 md:container md:mx-auto"
     <div className="grid grid-cols-1 gap-5  md:grid-cols-3 md:container md:mx-auto ">
       <Card className="flex items-center justify-center gap-5 p-5 ">
         <HeartHandshake size={50} className=" text-blue-600 min-w-20" />
