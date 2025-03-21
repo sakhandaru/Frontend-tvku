@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Clock, Badge } from "lucide-react";
+import { Clock } from "lucide-react";
 import img1 from "../../public/images/bahlil.jpeg";
 
 interface newsDataProps {
@@ -16,20 +16,18 @@ interface newsDataProps {
   deskripsi: string;
   waktu: string;
   kategori: string;
-  cover: string;
 }
 
 export default function NewsCard({
   judul,
   deskripsi,
   waktu,
-  kategori,
 }: newsDataProps) {
   return (
     <Card className="overflow-hidden">
       <div className="aspect-video relative">
         <Image src={img1} alt="bahlil" fill className="object-cover" />
-        <Badge className="absolute top-2 left-2">{kategori}</Badge>
+        {/* <Badge className="absolute top-2 left-2">{kategori}</Badge> */}
       </div>
       <CardHeader className="p-4">
         <CardTitle className="line-clamp-2 hover:text-primary cursor-pointer">

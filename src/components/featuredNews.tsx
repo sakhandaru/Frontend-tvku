@@ -8,7 +8,6 @@ interface newsDataProps {
     deskripsi: string;
     waktu: string;
     kategori: string;
-    cover: string;
   }
 
 export const FeaturedNews = ({ judul, deskripsi, kategori, waktu } : newsDataProps) => {
