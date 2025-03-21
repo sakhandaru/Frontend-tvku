@@ -42,6 +42,9 @@ const Navbar = () => {
             <li>
               <Link href="/programPage">Program</Link>
             </li>
+            <li>
+              <Link href="/seputarUdinus">Seputar UDINUS</Link>
+            </li>
             <li className="relative group">
               <Link href="#">Lainnya ▾</Link>
               <ul className="absolute hidden group-hover:block bg-white shadow-lg py-2 w-40 mt-2">
