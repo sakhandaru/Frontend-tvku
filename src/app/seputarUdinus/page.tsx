@@ -1,12 +1,11 @@
-import TVProgramPage from "@/components/TVProgramPage";
+import React from "react";
+import SeputarUdinus from "@/components/seputarUdinus";
 
 export default function ProgramPage() {
   
   return (
     <>
-      <div>
-        <h1>tes page</h1>
-      </div>
+        <SeputarUdinus />
     </>
   );
 }
