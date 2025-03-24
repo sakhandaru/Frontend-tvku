@@ -27,7 +27,8 @@ export default function FeaturedNews({
       <Image
         src={img1}
         alt={judul}
-        fill
+        width={1200}
+        height={600}
         className="object-cover"
         priority
       />
