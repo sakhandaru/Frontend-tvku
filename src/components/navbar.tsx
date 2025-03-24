@@ -1,13 +1,14 @@
 "use client"
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { BsBroadcast } from "react-icons/bs";
-import { useState, useEffect } from "react";
+import { FiMenu, FiX } from "react-icons/fi";
 
 const Navbar = () => {
   const [scroll, setScroll] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,21 +19,41 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
     <div
       className={`fixed top-0 w-full transition-all duration-500 bg-white/30 backdrop-blur-lg shadow-md z-10 ${
         scroll ? "bg-white/100" : "bg-transparent"
       }`}
     >
-      <header className="container mx-auto flex items-center justify-between ">
+      <header className="container mx-auto flex items-center justify-between px-4 md:px-8">
         <Image
           src="/images/tvkublue2x.png"
           width={100}
           height={60}
           alt="tvku logo"
         />
-        <nav>
-          <ul className="flex gap-8 font-bold text-base text-gray-900">
+
+        {/* Hamburger Menu for Small Screens */}
+        <div className="md:hidden">
+          <button
+            onClick={toggleMenu}
+            className="text-gray-900 text-2xl focus:outline-none"
+          >
+            {isMenuOpen ? <FiX /> : <FiMenu />}
+          </button>
+        </div>
+
+        {/* Navigation Links */}
+        <nav
+          className={`absolute md:static top-16 left-0 w-full md:w-auto bg-white md:bg-transparent shadow-md md:shadow-none transition-all duration-300 ${
+            isMenuOpen ? "block" : "hidden"
+          } md:flex`}
+        >
+          <ul className="flex flex-col md:flex-row gap-4 md:gap-8 font-bold text-base text-gray-900 p-4 md:p-0">
             <li>
               <Link href="/">Home</Link>
             </li>
