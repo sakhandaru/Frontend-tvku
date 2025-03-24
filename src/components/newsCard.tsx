@@ -9,25 +9,32 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Clock } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 import img1 from "../../public/images/bahlil.jpeg";
 
 interface newsDataProps {
   judul: string;
   deskripsi: string;
   waktu: string;
-  kategori: string;
+  kategori: NewsKategoriProps;
+}
+interface NewsKategoriProps {
+  id_kategori: number;
+  nama: string;
+  slug: string;
 }
 
 export default function NewsCard({
   judul,
   deskripsi,
+  kategori,
   waktu,
 }: newsDataProps) {
   return (
     <Card className="overflow-hidden">
       <div className="aspect-video relative">
         <Image src={img1} alt="bahlil" fill className="object-cover" />
-        {/* <Badge className="absolute top-2 left-2">{kategori}</Badge> */}
+        <Badge className="absolute top-2 left-2">{kategori.nama}</Badge>
       </div>
       <CardHeader className="p-4">
         <CardTitle className="line-clamp-2 hover:text-primary cursor-pointer">

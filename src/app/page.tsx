@@ -12,8 +12,14 @@ interface Inewsdata {
   judul: string;
   deskripsi: string;
   waktu: string;
-  kategori: string;
+  kategori: Ikategori;
 }
+interface Ikategori {
+  id_kategori: number;
+  nama: string;
+  slug: string;
+}
+
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 const response = await fetch(`${BASE_URL}/berita`);

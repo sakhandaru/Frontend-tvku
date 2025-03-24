@@ -14,7 +14,13 @@ interface newsDataProps {
   judul: string;
   deskripsi: string;
   waktu: string;
-  kategori: string;
+  kategori: NewsKategoriProps;
+}
+
+interface NewsKategoriProps {
+  id_kategori: number;
+  nama: string;
+  slug: string;
 }
 
 export const NewsHeader = ({ judul, deskripsi, waktu } : newsDataProps) => {
@@ -25,7 +31,7 @@ export const NewsHeader = ({ judul, deskripsi, waktu } : newsDataProps) => {
           src={img1}
           alt="bahlil"
           className="w-full object-cover rounded-t-xl md:rounded-t-none md:rounded-l-xl"
-        ></Image>
+        />
         <div className="flex flex-col justify-between">
           <CardHeader>
             <CardTitle>

@@ -1,39 +1,51 @@
-import { FeaturedNews } from "@/components/featuredNews";
 import NewsCard from "@/components/newsCard";
+import FeaturedNews from "@/components/featuredNews";
 
+interface Inewsdata {
+  id: number;
+  judul: string;
+  deskripsi: string;
+  waktu: string;
+  kategori: Ikategori;
+}
+
+interface Ikategori {
+  id_kategori: number;
+  nama: string;
+  slug: string;
+}
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-export default async function News() {
-  interface newsDataProps {
-    judul: string;
-    deskripsi: string;
-    waktu: string;
-    kategori: string;
-  }
+const response = await fetch(`${BASE_URL}/berita`);
+const jsonData = await response.json();
+const newsdatas: Inewsdata[] = jsonData.data;
 
-  const response = await fetch(`${BASE_URL}/berita`);
-  const news: newsDataProps[] = await response.json();
-
+export default function Home() {
   return (
-    <div className="container mx-auto my-20">
-      <div>
-        <FeaturedNews 
-            judul={news[0].judul}
-            deskripsi={news[0].deskripsi}
-            waktu={news[0].waktu}
-            kategori={news[0].kategori}
-        />
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {news.map((news, index) => (
-          <NewsCard
-            key={index}
-            judul={news.judul}
-            deskripsi={news.deskripsi}
-            waktu={news.waktu}
-            kategori={news.kategori}
-          />
-        ))}
+    <div className="bg-gray-100 pb-6">
+      <div className="container mx-auto">
+        <div className="mb-6">
+          <div>
+            <FeaturedNews
+              judul={newsdatas[0].judul}
+              deskripsi={newsdatas[0].deskripsi}
+              waktu={newsdatas[0].waktu}
+              kategori={newsdatas[0].kategori}
+            />
+          </div>
+          <div></div>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {newsdatas.slice(1, 7).map((news, index) => (
+            <NewsCard
+              key={index}
+              judul={news.judul}
+              deskripsi={news.deskripsi}
+              waktu={news.waktu}
+              kategori={news.kategori}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
