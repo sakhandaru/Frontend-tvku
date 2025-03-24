@@ -8,28 +8,36 @@ const categories = [
   {
     title: 'Kabar Udinus',
     items: [
-      { image: '/image1.jpg', title: 'Udinus Bagikan Seribu Takjil Gratis Untuk Mahasiswa Selama Ramadhan' },
-      { image: '/image2.jpg', title: 'Pusat Kegiatan Mahasiswa Udinus Hadir Dengan Nuansa Open Space' },
-      { image: '/image3.jpg', title: 'Udinus Gelar Posbindu dan Pengobatan Gratis' },
+      { image: '/images/programTV/sapaDosen.png', title: 'Udinus Bagikan Seribu Takjil Gratis Untuk Mahasiswa Selama Ramadhan' },
+      { image: '/images/programTV/sapaDosen.png', title: 'Udinus Bagikan Seribu Takjil Gratis Untuk Mahasiswa Selama Ramadhan' },
+      { image: '/images/programTV/sapaDosen.png', title: 'Udinus Bagikan Seribu Takjil Gratis Untuk Mahasiswa Selama Ramadhan' },
+      { image: '/images/programTV/sapaDosen.png', title: 'Udinus Bagikan Seribu Takjil Gratis Untuk Mahasiswa Selama Ramadhan' },
+      { image: '/images/programTV/sapaDosen.png', title: 'Udinus Bagikan Seribu Takjil Gratis Untuk Mahasiswa Selama Ramadhan' },
+      { image: '/images/programTV/sapaDosen.png', title: 'Udinus Bagikan Seribu Takjil Gratis Untuk Mahasiswa Selama Ramadhan' },
+      { image: '/images/programTV/sapaDosen.png', title: 'Udinus Bagikan Seribu Takjil Gratis Untuk Mahasiswa Selama Ramadhan' },
     ],
   },
   {
-    title: 'Sapa Dosen',
+    title: 'Kabar Udinus',
     items: [
-      { image: '/image4.jpg', title: 'SAPA DOSEN - Anemia pada Remaja - Seg 3' },
-      { image: '/image5.jpg', title: 'SAPA DOSEN - Anemia pada Remaja - Seg 2' },
-      { image: '/image6.jpg', title: 'SAPA DOSEN - Investasi Sementara dan Investasi Jangka Panjang - Seg 1' },
+      { image: '/images/programTV/sapaDosen.png', title: 'Udinus Bagikan Seribu Takjil Gratis Untuk Mahasiswa Selama Ramadhan' },
+      { image: '/images/programTV/sapaDosen.png', title: 'Udinus Bagikan Seribu Takjil Gratis Untuk Mahasiswa Selama Ramadhan' },
+      { image: '/images/programTV/sapaDosen.png', title: 'Udinus Bagikan Seribu Takjil Gratis Untuk Mahasiswa Selama Ramadhan' },
+    ],
+  },
+  {
+    title: 'Kabar Udinus',
+    items: [
+      { image: '/images/programTV/sapaDosen.png', title: 'Udinus Bagikan Seribu Takjil Gratis Untuk Mahasiswa Selama Ramadhan' },
+      { image: '/images/programTV/sapaDosen.png', title: 'Udinus Bagikan Seribu Takjil Gratis Untuk Mahasiswa Selama Ramadhan' },
+      { image: '/images/programTV/sapaDosen.png', title: 'Udinus Bagikan Seribu Takjil Gratis Untuk Mahasiswa Selama Ramadhan' },
     ],
   },
 ];
 
-type ScrollContainerProps = {
-  items: { image: string; title: string }[];
-};
-
-export default function seputarUdinus() {
+export default function SeputarUdinus() {
   return (
-    <div className="space-y-6">
+    <div className="mt-30 mb-30 px-30 space-y-6">
       {categories.map((category, index) => (
         <div key={index} className="space-y-3">
           <h2 className="text-xl font-semibold">{category.title}</h2>
@@ -41,6 +49,10 @@ export default function seputarUdinus() {
     </div>
   );
 }
+
+type ScrollContainerProps = {
+  items: { image: string; title: string }[];
+};
 
 function ScrollContainer({ items }: ScrollContainerProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -62,10 +74,12 @@ function ScrollContainer({ items }: ScrollContainerProps) {
       </button>
       <div ref={scrollRef} className="flex overflow-x-scroll scrollbar-hide space-x-4 p-2">
         {items.map((item, index) => (
-          <div key={index} className="w-64 flex-shrink-0 bg-white shadow-lg rounded-xl overflow-hidden">
-            <Image src={item.image} alt={item.title} width={256} height={144} className="w-full h-36 object-cover" />
-            <div className="p-3">
-              <p className="text-sm font-medium">{item.title}</p>
+          <div key={index} className="w-80 flex-shrink-0 bg-white shadow-lg rounded-2xl overflow-hidden">
+            <Image src={item.image} alt={item.title} width={320} height={180} className="w-full h-40 object-cover" />
+            <div className="p-4 space-y-2">
+              <p className="text-sm font-medium text-gray-800">{item.title}</p>
+              <div className="flex items-center space-x-2">
+              </div>
             </div>
           </div>
         ))}
