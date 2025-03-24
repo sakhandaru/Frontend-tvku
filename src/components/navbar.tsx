@@ -70,10 +70,10 @@ const Navbar = () => {
               <Link href="#">Lainnya ▾</Link>
               <ul className="absolute hidden group-hover:block bg-white shadow-lg py-2 w-40 mt-2">
                 <li className="px-4 py-2 hover:bg-gray-100">
-                  <Link href="/solution1">Opsi 1</Link>
+                  <Link href="/digitalMarketing">Digital Marketing</Link>
                 </li>
                 <li className="px-4 py-2 hover:bg-gray-100">
-                  <Link href="/solution2">Opsi 2</Link>
+                  <Link href="/sales">Sales</Link>
                 </li>
               </ul>
             </li>
