@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
@@ -77,10 +77,19 @@ const Navbar = () => {
                 </li>
               </ul>
             </li>
+            <li className="md:hidden mt-4">
+              <Link href="/liveStream">
+                <button className="bg-red-500 text-white px-4 py-2 rounded-full font-semibold hover:bg-red-600 transition-all flex items-center gap-2 w-full justify-center">
+                  <BsBroadcast />
+                  Live Streaming
+                </button>
+              </Link>
+            </li>
           </ul>
         </nav>
 
-        <div>
+        {/* Tombol Live Streaming */}
+        <div className="hidden md:block">
           <Link href="/liveStream">
             <button className="bg-red-500 text-white px-4 py-2 rounded-full font-semibold hover:bg-red-600 transition-all flex items-center gap-2">
               <BsBroadcast />
