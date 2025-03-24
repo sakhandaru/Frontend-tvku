@@ -1,11 +1,14 @@
 
+import Benefit from '@/components/benefit';
+import Iklan from '@/components/jasaiklan';
 import React from 'react';
 export default function digitalarketing() {
   
   return (
     <>
-       <div className='pt-100'>
-        <h1>q</h1>
+       <div className='my-30'>
+        {/* <Iklan /> */}
+        <Benefit />
        </div>
     </>
   );
