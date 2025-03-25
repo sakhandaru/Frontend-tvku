@@ -32,9 +32,9 @@ export function MultiTabContent({
   categories: NewsKategoriProps[];
 }) {
   return (
-    <Tabs defaultValue={String(categories[0].id_kategori)}>
+    <Tabs defaultValue={String(categories[1]?.id_kategori)}>
       <TabsList>
-        {categories.map((category) => (
+        {kategoriData.map((category) => (
           <TabsTrigger
             key={category.id_kategori}
             value={String(category.id_kategori)}
@@ -49,16 +49,20 @@ export function MultiTabContent({
             key={category.id_kategori}
             value={String(category.id_kategori)}
           >
-            <div className="grid grid-cols-1">
-            {beritaData.map((news, index) => (
-              <NewsCard
-              key={index}
-              judul={news.judul}
-              deskripsi={news.deskripsi}
-              waktu={news.waktu}
-              kategori={news.kategori}
-              />
-            ))}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {beritaData
+                .filter(
+                  (news) => news.kategori?.id_kategori === category.id_kategori
+                )
+                .map((news, index) => (
+                  <NewsCard
+                    key={index}
+                    judul={news.judul}
+                    deskripsi={news.deskripsi}
+                    waktu={news.waktu}
+                    kategori={news.kategori}
+                  />
+                ))}
             </div>
           </TabsContent>
         ))}
