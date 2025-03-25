@@ -34,7 +34,7 @@ export default function NewsCard({
     <Card className="overflow-hidden">
       <div className="aspect-video relative">
         <Image src={img1} alt="bahlil" fill className="object-cover" />
-        <Badge className="absolute top-2 left-2">{kategori.nama}</Badge>
+        <Badge className="absolute top-2 left-2">{kategori?.nama}</Badge>
       </div>
       <CardHeader className="p-4">
         <CardTitle className="line-clamp-2 hover:text-primary cursor-pointer">

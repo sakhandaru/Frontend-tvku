@@ -17,7 +17,7 @@ const NewsList = ({ judul, kategori, waktu }: NewsDataProps) => {
   return (
     <div className="border-b pb-4 last:border-0">
       <Badge variant="outline" className="mb-1">
-        {kategori.nama}
+        {kategori?.nama}
       </Badge>
       <h3 className="font-medium hover:text-primary cursor-pointer">{judul}</h3>
       <p className="text-sm text-muted-foreground">{waktu}</p>

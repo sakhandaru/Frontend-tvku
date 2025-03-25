@@ -1,5 +1,5 @@
-import NewsCard from "@/components/newsCard";
 import FeaturedNews from "@/components/featuredNews";
+import { MultiTabContent } from "@/components/multiTabContent";
 import NewsList from "@/components/newsList";
 
 interface Inewsdata {
@@ -14,31 +14,38 @@ interface Ikategori {
   id_kategori: number;
   nama: string;
   slug: string;
+  data: Inewsdata[];
 }
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-const response = await fetch(`${BASE_URL}/berita`);
-const jsonData = await response.json();
-const newsdatas: Inewsdata[] = jsonData.data;
+const [newsdatas, kategoridata] = await Promise.all([
+  fetch(`${BASE_URL}/berita`).then((res) => res.json()),
+  fetch(`${BASE_URL}/kategori`).then((res) => res.json()),
+]);
+
+const beritaData: Inewsdata[] = newsdatas.data;
+const kategoriData: Ikategori[] = kategoridata;
+
+console.log(kategoriData);
 
 export default function Home() {
   return (
-    <div className="bg-gray-100 pb-6 pt-30">
+    <div className="bg-gray-100 pb-6 pt-25">
       <div className="md:container md:mx-auto">
         <div className="md:flex gap-6 mb-6">
           <div className="mb-6">
             <FeaturedNews
-              judul={newsdatas[0].judul}
-              deskripsi={newsdatas[0].deskripsi}
-              waktu={newsdatas[0].waktu}
-              kategori={newsdatas[0].kategori}
+              judul={beritaData[0].judul}
+              deskripsi={beritaData[0].deskripsi}
+              waktu={beritaData[0].waktu}
+              kategori={beritaData[0].kategori}
             />
           </div>
           <div className="space-y-4">
             <h2 className="text-2xl md:text-4xl font-bold mb-6">
               Berita Terbaru
             </h2>
-            {newsdatas.slice(1, 5).map((news, index) => (
+            {beritaData.slice(1, 8).map((news, index) => (
               <NewsList
                 key={index}
                 judul={news.judul}
@@ -49,20 +56,12 @@ export default function Home() {
           </div>
         </div>
         <div>
-          <h1 className="text-2xl md:text-4xl font-bold mb-6">
-            Berita Terkini
-          </h1>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {newsdatas.slice(1, 7).map((news, index) => (
-            <NewsCard
-              key={index}
-              judul={news.judul}
-              deskripsi={news.deskripsi}
-              waktu={news.waktu}
-              kategori={news.kategori}
-            />
-          ))}
+          <div className=" justify-between items-center mb-6">
+            <h1 className="text-2xl md:text-4xl font-bold mb-4">Berita Terkini</h1>
+            <div>
+              <MultiTabContent categories={kategoriData} />
+            </div>
+          </div>
         </div>
       </div>
     </div>
