@@ -38,6 +38,7 @@ export function MultiTabContent({
           <TabsTrigger
             key={category.id_kategori}
             value={String(category.id_kategori)}
+            className="text-md font-semibold"
           >
             {category.nama}
           </TabsTrigger>

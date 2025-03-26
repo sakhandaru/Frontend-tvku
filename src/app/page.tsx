@@ -29,7 +29,7 @@ console.log(newsdatas);
 
 export default function Home() {
   return (
-    <div className="bg-gray-100">
+    <div className="bg-gray-200">
       <div className="z-0">
         <Carousel />
       </div>

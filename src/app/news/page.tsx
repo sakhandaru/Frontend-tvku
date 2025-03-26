@@ -30,7 +30,7 @@ console.log(kategoriData);
 
 export default function Home() {
   return (
-    <div className="bg-gray-100 pb-6 pt-25">
+    <div className="bg-gray-200 pb-6 pt-25">
       <div className="md:container md:mx-auto">
         <div className="md:flex gap-6 mb-6">
           <div className="mb-6">
@@ -45,7 +45,7 @@ export default function Home() {
             <h2 className="text-2xl md:text-4xl font-bold mb-6">
               Berita Terbaru
             </h2>
-            {beritaData.slice(1, 8).map((news, index) => (
+            {beritaData.slice(1, 7).map((news, index) => (
               <NewsList
                 key={index}
                 judul={news.judul}
