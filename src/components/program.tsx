@@ -1,73 +1,88 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight, Star } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
+import axios from "axios";
+import img1 from "../../public/images/bahlil.jpeg";
 
 import "swiper/css";
 import "swiper/css/navigation";
 
-const programTelevisi = [
-  {
-    id: 201,
-    title: "Ocean's Depths",
-    genre: "Adventure",
-    rating: 4.6,
-    image: "/images/program/1.webp",
-  },
-  {
-    id: 202,
-    title: "City Lights",
-    genre: "Drama",
-    rating: 4.2,
-    image: "/images/program/2.webp",
-  },
-  {
-    id: 203,
-    title: "Wilderness",
-    genre: "Reality",
-    rating: 4.4,
-    image: "/images/program/3.webp",
-  },
-  {
-    id: 204,
-    title: "Cooking Masters",
-    genre: "Reality",
-    rating: 4.7,
-    image: "/images/program/4.webp",
-  },
-  {
-    id: 205,
-    title: "Cooking Masters",
-    genre: "Reality",
-    rating: 4.7,
-    image: "/images/program/5.webp",
-  },
-  {
-    id: 206,
-    title: "Cooking Masters",
-    genre: "Reality",
-    rating: 4.7,
-    image: "/images/program/6.webp",
-  },
-  {
-    id: 207,
-    title: "Cooking Masters",
-    genre: "Reality",
-    rating: 4.7,
-    image: "/images/program/7.webp",
-  },
-  {
-    id: 208,
-    title: "Cooking Masters",
-    genre: "Reality",
-    rating: 4.7,
-    image: "/images/program/8.webp",
-  },
-];
+interface Iprogram {
+  id: number;
+  thumbnail: string;
+  judul: string;
+  deskripsi: string;
+}
+
+const BASE_URL =
+  process.env.NEXT_PUBLIC_API_BASE_URL || "https://default-fallback-url.com";
+
 export const Program = () => {
+  const [programs, setPrograms] = useState<Iprogram[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchPrograms = async () => {
+      try {
+        const response = await axios.get<Iprogram[]>(
+          `${BASE_URL}/our-programs`
+        );
+        setPrograms(response.data);
+      } catch (err) {
+        let errorMessage = "Failed to load programs";
+
+        if (axios.isAxiosError(err)) {
+          if (err.code === "ECONNABORTED") {
+            errorMessage = "Request timeout. Please try again.";
+          } else if (!err.response) {
+            errorMessage = "Network error. Please check your connection.";
+          } else {
+            errorMessage = err.response.data?.message || err.message;
+          }
+        } else if (err instanceof Error) {
+          errorMessage = err.message;
+        }
+
+        setError(errorMessage);
+        console.error("API Error:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPrograms();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="container mx-auto mt-15 flex justify-center items-center h-40">
+        <p>Loading programs...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="container mx-auto mt-15">
+        <h1 className="text-2xl md:text-4xl font-bold">Program</h1>
+        <div className="mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+          <p>Error: {error}</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="mt-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+          >
+            Try Again
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="container mx-auto mt-15">
       <div>
@@ -79,26 +94,10 @@ export const Program = () => {
           spaceBetween={20}
           slidesPerView={1.5}
           breakpoints={{
-            // Mobile
-            320: {
-              slidesPerView: 1.5,
-              spaceBetween: 10,
-            },
-            // Tablet
-            640: {
-              slidesPerView: 2.5,
-              spaceBetween: 15,
-            },
-            // Desktop
-            1024: {
-              slidesPerView: 4,
-              spaceBetween: 20,
-            },
-            // Large Desktop
-            1280: {
-              slidesPerView: 5,
-              spaceBetween: 20,
-            },
+            320: { slidesPerView: 1.5, spaceBetween: 10 },
+            640: { slidesPerView: 2.5, spaceBetween: 15 },
+            1024: { slidesPerView: 4, spaceBetween: 20 },
+            1280: { slidesPerView: 5, spaceBetween: 20 },
           }}
           navigation={{
             nextEl: ".hero-next",
@@ -110,32 +109,28 @@ export const Program = () => {
           }}
           loop={true}
         >
-          {programTelevisi.map((program) => (
+          {programs.map((program) => (
             <SwiperSlide key={program.id}>
               <div className="group relative rounded-md overflow-hidden transition-transform duration-300 hover:scale-[1.05] hover:z-10">
                 <div className="relative" style={{ aspectRatio: "314/444" }}>
                   <Image
-                    src={program.image}
-                    alt={program.title}
+                    src={img1}
+                    alt={program.judul}
                     fill
                     className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    priority={program.id === programs[0]?.id}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent md:opacity-0 md:group-hover:opacity-100 transition-opacity" />
                   <div className="absolute bottom-0 left-0 w-full p-3 md:bottom-10 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
                     <h4 className="text-white font-bold mb-1 truncate text-lg md:text-2xl">
-                      {program.title}
+                      {program.judul}
                     </h4>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <span className="bg-primary px-1.5 py-0.5 rounded text-[10px] text-white font-medium">
-                          {program.genre}
+                          {program.deskripsi}
                         </span>
-                        <div className="flex items-center gap-0.5">
-                          <Star className="w-3 h-3 md:w-4 md:h-4 fill-yellow-400 text-yellow-400" />
-                          <span className="text-[10px] text-white">
-                            {program.rating}
-                          </span>
-                        </div>
                       </div>
                     </div>
                   </div>

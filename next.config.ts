@@ -1,7 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-};
+      async rewrites() {
+        return [
+          {
+            source: "/api/our-program",
+            destination: "http://apidev.tvku.tv/api/our-program",
+          },
+        ];
+      },
+  };
 
 export default nextConfig;
