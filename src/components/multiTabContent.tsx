@@ -26,11 +26,7 @@ const [newsdatas, kategoridata] = await Promise.all([
 const beritaData: NewsData[] = newsdatas.data;
 const kategoriData: NewsKategoriProps[] = kategoridata;
 
-export function MultiTabContent({
-  categories,
-}: {
-  categories: NewsKategoriProps[];
-}) {
+export function MultiTabContent({categories}: { categories: NewsKategoriProps[];}) {
   return (
     <Tabs defaultValue={String(categories[1]?.id_kategori)}>
       <TabsList>
@@ -51,11 +47,7 @@ export function MultiTabContent({
             value={String(category.id_kategori)}
           >
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {beritaData
-                .filter(
-                  (news) => news.kategori?.id_kategori === category.id_kategori
-                )
-                .map((news, index) => (
+              {beritaData.filter((news) => news.kategori?.id_kategori === category.id_kategori).map((news, index) => (
                   <NewsCard
                     key={index}
                     judul={news.judul}
