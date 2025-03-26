@@ -1,5 +1,6 @@
 
 import Benefit from '@/components/iklanBenefit';
+import Harga from '@/components/iklanHarga';
 import Iklan from '@/components/iklanHero';
 import Kerjasama from '@/components/iklanKerjasama';
 import Posisi from '@/components/iklanPosisi';
@@ -13,6 +14,8 @@ export default function digitalarketing() {
         <Benefit />
         <Kerjasama />
         <Posisi />
+        <Harga />
+        
        </div>
     </>
   );
