@@ -1,14 +1,17 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-      async rewrites() {
-        return [
-          {
-            source: "/api/our-program",
-            destination: "http://apidev.tvku.tv/api/our-program",
-          },
-        ];
-      },
+    images:{
+      remotePatterns:[
+        {
+          protocol: 'https',
+          hostname: 'storage.tvku.tv',
+          port: '',
+          pathname: '/**',
+          search: '',
+        }
+      ]
+    }
   };
 
 export default nextConfig;

@@ -18,8 +18,7 @@ interface Iprogram {
   deskripsi: string;
 }
 
-const BASE_URL =
-  process.env.NEXT_PUBLIC_API_BASE_URL || "https://default-fallback-url.com";
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export const Program = () => {
   const [programs, setPrograms] = useState<Iprogram[]>([]);

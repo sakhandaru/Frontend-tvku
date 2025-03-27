@@ -1,13 +1,14 @@
 import Image from "next/image";
 import { CalendarIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import img1 from "../../public/images/bahlil.jpeg";
+// import img1 from "../../public/images/bahlil.jpeg";
 
 interface NewsDataProps {
   judul: string;
   deskripsi: string;
   waktu: string;
   kategori: NewsKategoriProps;
+  cover: string;
   imageAlt?: string;
 }
 interface NewsKategoriProps {
@@ -21,11 +22,12 @@ export default function FeaturedNews({
   deskripsi,
   kategori,
   waktu,
+  cover,
 }: NewsDataProps) {
   return (
     <div className="relative aspect-video overflow-hidden rounded-lg">
       <Image
-        src={img1}
+        src={cover}
         alt={judul}
         width={1200}
         height={600}

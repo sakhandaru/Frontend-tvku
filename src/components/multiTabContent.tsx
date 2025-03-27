@@ -6,6 +6,7 @@ interface NewsData {
   judul: string;
   deskripsi: string;
   waktu: string;
+  cover: string;
   kategori: NewsKategoriProps;
 }
 
@@ -28,7 +29,7 @@ const kategoriData: NewsKategoriProps[] = kategoridata;
 
 export function MultiTabContent({categories}: { categories: NewsKategoriProps[];}) {
   return (
-    <Tabs defaultValue={String(categories[1]?.id_kategori)}>
+    <Tabs defaultValue={String(categories[1]?.id_kategori)} className="gap-10">
       <TabsList>
         {kategoriData.map((category) => (
           <TabsTrigger
@@ -50,6 +51,7 @@ export function MultiTabContent({categories}: { categories: NewsKategoriProps[];
               {beritaData.filter((news) => news.kategori?.id_kategori === category.id_kategori).map((news, index) => (
                   <NewsCard
                     key={index}
+                    cover={news.cover}
                     judul={news.judul}
                     deskripsi={news.deskripsi}
                     waktu={news.waktu}

@@ -8,6 +8,7 @@ interface Inewsdata {
   deskripsi: string;
   waktu: string;
   kategori: Ikategori;
+  cover: string;
 }
 
 interface Ikategori {
@@ -35,6 +36,7 @@ export default function Home() {
         <div className="md:flex gap-6 mb-6">
           <div className="mb-6">
             <FeaturedNews
+              cover={beritaData[0].cover}
               judul={beritaData[0].judul}
               deskripsi={beritaData[0].deskripsi}
               waktu={beritaData[0].waktu}

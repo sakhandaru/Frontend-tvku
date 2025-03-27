@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import img1 from "../../public/images/bahlil.jpeg";
 import {
   Card,
   CardContent,
@@ -14,6 +13,7 @@ interface newsDataProps {
   judul: string;
   deskripsi: string;
   waktu: string;
+  cover: string;
   kategori: NewsKategoriProps;
 }
 
@@ -23,13 +23,15 @@ interface NewsKategoriProps {
   slug: string;
 }
 
-export const NewsHeader = ({ judul, deskripsi, waktu } : newsDataProps) => {
+export const NewsHeader = ({ judul, deskripsi, waktu, cover } : newsDataProps) => {
   return (
     <div>
       <Card className="container md:flex md:mx-auto mb-6">
         <Image
-          src={img1}
+          src={cover}
           alt="bahlil"
+          width={1000}
+          height={500}
           className="w-full object-cover rounded-t-xl md:rounded-t-none md:rounded-l-xl"
         />
         <div className="flex flex-col justify-between">

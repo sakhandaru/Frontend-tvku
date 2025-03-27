@@ -5,7 +5,6 @@ import NewsCard from "@/components/newsCard";
 import { NewsHeader } from "@/components/newsHeader";
 import { Program } from "@/components/program";
 import Schedule from "@/components/schedule";
-import { ValueSection } from "@/components/valueSection";
 
 interface Inewsdata {
   id: number;
@@ -13,6 +12,7 @@ interface Inewsdata {
   deskripsi: string;
   waktu: string;
   kategori: Ikategori;
+  cover: string;
 }
 interface Ikategori {
   id_kategori: number;
@@ -33,34 +33,33 @@ export default function Home() {
       <div className="z-0">
         <Carousel />
       </div>
+      <Schedule />
       <div className="container mx-auto">
-        <Schedule />
-        <div>
-          <h1 className="text-2xl md:text-4xl font-bold mb-6">
-            Berita Terkini
-          </h1>
-          <NewsHeader
-            judul={newsdatas[0].judul}
-            deskripsi={newsdatas[0].deskripsi}
-            waktu={newsdatas[0].waktu}
-            kategori={newsdatas[0].kategori}
-          />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {newsdatas.slice(1, 7).map((news, index) => (
-              <NewsCard
-                key={index}
-                judul={news.judul}
-                deskripsi={news.deskripsi}
-                waktu={news.waktu}
-                kategori={news.kategori}
-              />
-            ))}
-          </div>
+        <h1 className="text-2xl md:text-4xl font-bold mb-6">Berita Terkini</h1>
+        <NewsHeader
+          cover={newsdatas[0].cover}
+          judul={newsdatas[0].judul}
+          deskripsi={newsdatas[0].deskripsi}
+          waktu={newsdatas[0].waktu}
+          kategori={newsdatas[0].kategori}
+        />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {newsdatas.slice(1, 7).map((news, index) => (
+            <NewsCard
+              key={index}
+              cover={news.cover}
+              judul={news.judul}
+              deskripsi={news.deskripsi}
+              waktu={news.waktu}
+              kategori={news.kategori}
+            />
+          ))}
         </div>
-        <Program />
-        <About />
-        <ValueSection />
+      </div>
+      <Program />
+      <div className="bg-white py-15">
         <CarouselCompanyLogo />
+        <About />
       </div>
     </div>
   );
