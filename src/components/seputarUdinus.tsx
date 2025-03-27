@@ -37,7 +37,7 @@ const categories = [
 
 export default function SeputarUdinus() {
   return (
-    <div className="mt-30 mb-30 px-30 space-y-6">
+    <div className="mt-30 mb-30 px-4 sm:px-6 md:px-10 lg:px-30 space-y-6">
       {categories.map((category, index) => (
         <div key={index} className="space-y-3">
           <h2 className="text-xl font-semibold">{category.title}</h2>
