@@ -25,7 +25,6 @@ const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 const response = await fetch(`${BASE_URL}/berita`);
 const jsonData = await response.json();
 const newsdatas: Inewsdata[] = jsonData.data;
-console.log(newsdatas);
 
 export default function Home() {
   return (
@@ -57,7 +56,7 @@ export default function Home() {
         </div>
       </div>
       <Program />
-      <div className="bg-white py-15">
+      <div className="bg-white py-10">
         <CarouselCompanyLogo />
         <About />
       </div>

@@ -87,7 +87,7 @@ export const Program = () => {
       <div>
         <h1 className="text-2xl md:text-4xl font-bold">Program</h1>
       </div>
-      <div className="py-8">
+      <div className="pt-8 pb-20">
         <Swiper
           modules={[Navigation, Autoplay]}
           spaceBetween={20}

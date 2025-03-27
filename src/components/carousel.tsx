@@ -20,8 +20,6 @@ function Carousel() {
         slidesPerView={1}
         navigation
         pagination={{ clickable: true }}
-        onSwiper={(swiper) => console.log(swiper)}
-        onSlideChange={() => console.log("slide change")}
       >
         <SwiperSlide >
           <Image src={img1} alt="gambar1" />
