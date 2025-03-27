@@ -23,7 +23,14 @@ interface NewsKategoriProps {
   slug: string;
 }
 
-export const NewsHeader = ({ judul, deskripsi, waktu, cover } : newsDataProps) => {
+export const NewsHeader = ({
+  judul,
+  deskripsi,
+  waktu,
+  cover,
+}: newsDataProps) => {
+  const markup = { __html: deskripsi };
+
   return (
     <div>
       <Card className="container md:flex md:mx-auto mb-6">
@@ -40,12 +47,13 @@ export const NewsHeader = ({ judul, deskripsi, waktu, cover } : newsDataProps) =
               <h2 className="text-3xl font-bold">{judul}</h2>
             </CardTitle>
           </CardHeader>
-          <CardContent className="flex flex-col justify-between flex-1 gap-10">
-            <div>
+          <CardContent className="flex flex-col justify-between flex-1">
+            <div className="space-y-3.5">
               <CardDescription>
-                <span className="text-muted-foreground mb-6">
-                  {deskripsi}
-                </span>
+                <span
+                  className="text-muted-foreground mb-6"
+                  dangerouslySetInnerHTML={markup}
+                />
               </CardDescription>
               <Button>Read More</Button>
             </div>
@@ -53,9 +61,7 @@ export const NewsHeader = ({ judul, deskripsi, waktu, cover } : newsDataProps) =
               <p className="border rounded-2xl px-4 py-1 font-semibold shadow ">
                 politik
               </p>
-              <span>
-                {waktu}
-              </span>
+              <span>{waktu}</span>
             </div>
           </CardContent>
         </div>

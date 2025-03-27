@@ -120,14 +120,14 @@ export const Program = () => {
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     priority={program.id === programs[0]?.id}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent md:opacity-0 md:group-hover:opacity-100 transition-opacity" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent md:opacity-0 md:group-hover:opacity-100 transition-opacity" />
                   <div className="absolute bottom-0 left-0 w-full p-3 md:bottom-10 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
                     <h4 className="text-white font-bold mb-1 truncate text-lg md:text-2xl">
                       {program.judul}
                     </h4>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <span className="bg-primary px-1.5 py-0.5 rounded text-[10px] text-white font-medium">
+                        <span className="px-1.5 py-0.5 rounded text-[10px] text-white font-medium">
                           {program.deskripsi}
                         </span>
                       </div>

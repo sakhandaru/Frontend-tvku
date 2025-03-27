@@ -27,8 +27,6 @@ const [newsdatas, kategoridata] = await Promise.all([
 const beritaData: Inewsdata[] = newsdatas.data;
 const kategoriData: Ikategori[] = kategoridata;
 
-console.log(kategoriData);
-
 export default function Home() {
   return (
     <div className="bg-gray-200 pb-6 pt-25">
@@ -47,7 +45,7 @@ export default function Home() {
             <h2 className="text-2xl md:text-4xl font-bold mb-6">
               Berita Terbaru
             </h2>
-            {beritaData.slice(1, 7).map((news, index) => (
+            {beritaData.slice(1, 6).map((news, index) => (
               <NewsList
                 key={index}
                 judul={news.judul}
