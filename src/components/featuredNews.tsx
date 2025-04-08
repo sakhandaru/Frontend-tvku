@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { CalendarIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-// import img1 from "../../public/images/bahlil.jpeg";
 
 interface NewsDataProps {
   judul: string;
