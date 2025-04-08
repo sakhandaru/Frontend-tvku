@@ -3,6 +3,7 @@ import Carousel from "@/components/carousel";
 import { CarouselCompanyLogo } from "@/components/carouselCompanyLogo";
 import NewsCard from "@/components/newsCard";
 import { NewsHeader } from "@/components/newsHeader";
+import { OurExpertise } from "@/components/ourExpertise";
 import { Program } from "@/components/program";
 import Schedule from "@/components/schedule";
 
@@ -56,9 +57,16 @@ export default function Home() {
         </div>
       </div>
       <Program />
-      <div className="bg-white py-10">
-        <CarouselCompanyLogo />
-        <About />
+      <div className="bg-white pt-30 ">
+        <div>
+          <CarouselCompanyLogo />
+        </div>
+        <div>
+          <About />
+        </div>
+        <div>
+          <OurExpertise />
+        </div>
       </div>
     </div>
   );

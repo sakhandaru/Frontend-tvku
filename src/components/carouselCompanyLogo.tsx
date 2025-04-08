@@ -8,7 +8,7 @@ import Image from "next/image";
 
 export const CarouselCompanyLogo = () => {
   return (
-    <div className="container mx-auto ">
+    <div className="container mx-auto pt-30">
       <h1 className="flex justify-center text-xl md:text-4xl font-bold mb-15">
         KERJASAMA YANG TERJALIN DENGAN TVKU
       </h1>

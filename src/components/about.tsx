@@ -25,7 +25,6 @@ const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export const About = () => {
   const [abouts, setAbout] = useState<Iabout[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -50,21 +49,11 @@ export const About = () => {
 
         setError(errorMessage);
         console.error("API Error:", err);
-      } finally {
-        setLoading(false);
       }
     };
 
     fetchPrograms();
   }, []);
-
-  if (loading) {
-    return (
-      <div className="container mx-auto mt-15 flex justify-center items-center h-40">
-        <p>Loading programs...</p>
-      </div>
-    );
-  }
 
   if (error) {
     return (
@@ -86,7 +75,7 @@ export const About = () => {
   return (
     <>
       {abouts.map((about) => (
-        <div key={about.id}>
+        <div key={about.id} className="mt-30">
           <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-10 items-center m-10">
             <div className="container mx-auto">
               <h2 className="text-2xl md:text-4xl font-bold mb-6">
