@@ -13,25 +13,34 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-interface Iexpertise {
+interface Iexpertise1 {
   id: number;
   thumbnail: string;
   judul: string;
   deskripsi: string;
 }
 
+interface Iexpertise2 {
+  id: number;
+  thumbnail: string;
+  judul: string;
+}
+
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export const OurExpertise = () => {
-  const [expertise, setExpertise] = useState<Iexpertise[]>([]);
+  const [expertise1, setExpertise1] = useState<Iexpertise1[]>([]);
+  const [expertise2, setExpertise2] = useState<Iexpertise2[]>([]);
 
   useEffect(() => {
     const fetchPrograms = async () => {
       try {
-        const response = await axios.get<Iexpertise[]>(
-          `${BASE_URL}/home/our-expertise1`
-        );
-        setExpertise(response.data);
+        const [response1, response2] = await Promise.all([
+          axios.get<Iexpertise1[]>(`${BASE_URL}/home/our-expertise1`),
+          axios.get<Iexpertise2[]>(`${BASE_URL}/home/our-expertise2`),
+        ]);
+        setExpertise1(response1.data);
+        setExpertise2(response2.data);
       } catch (error) {
         console.error("Error fetching expertise data:", error);
       }
@@ -46,7 +55,7 @@ export const OurExpertise = () => {
         HERE ARE SOME OF OUR EXPERTISE
       </h1>
       <div className="grid grid-cols-2 gap-5 lg:gap-8">
-        {expertise.map((item) => (
+        {expertise1.map((item) => (
           <Card key={item.id} className="overflow-hidden">
             <div className="relative">
               <Image
@@ -64,6 +73,26 @@ export const OurExpertise = () => {
               <CardDescription className="text-sm">
                 {item.deskripsi}
               </CardDescription>
+            </CardHeader>
+          </Card>
+        ))}
+      </div>
+      <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 lg:gap-8 mt-15">
+        {expertise2.map((item) => (
+          <Card key={item.id} className="overflow-hidden">
+            <div className="relative">
+              <Image
+                src={item.thumbnail}
+                alt={item.judul}
+                width={400}
+                height={400}
+                className="object-cover w-full h-full"
+              />
+            </div>
+            <CardHeader className="p-4">
+              <CardTitle className="text-l md:text-lg lg:text-xl font-semibold">
+                {item.judul}
+              </CardTitle>
             </CardHeader>
           </Card>
         ))}
