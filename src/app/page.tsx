@@ -44,7 +44,7 @@ export default function Home() {
           kategori={newsdatas[0].kategori}
         />
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {newsdatas.slice(1, 7).map((news, index) => (
+          {newsdatas.slice(1, 4).map((news, index) => (
             <NewsCard
               key={index}
               cover={news.cover}
@@ -57,7 +57,7 @@ export default function Home() {
         </div>
       </div>
       <Program />
-      <div className="bg-white pt-30 ">
+      <div className="bg-white pt-20 ">
         <div>
           <CarouselCompanyLogo />
         </div>

@@ -41,28 +41,25 @@ export const OurExpertise = () => {
       </h1>
       <div>
         {expertise.map((item) => (
-          <section key={item.id} className="py-10">
-            <div className="mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="flex gap-5">
-                <div className="w-full lg:w-1/2">
-                  <div className="overflow-hidden rounded-lg">
-                    <Image 
-                    src={img1} 
-                    alt={item.judul}
-                    />
+          <section key={item.id} className="py-5">
+            <div className="">
+                <div className="gap-5">
+                  <div className="w-full lg:w-1/2">
+                    <div className="overflow-hidden rounded-lg">
+                      <Image src={img1} alt={item.judul} />
+                    </div>
+                  </div>
+                  <div className="w-full lg:w-1/2">
+                    <div className="max-w-lg">
+                      <h2 className="text-2xl lg:text-2xl font-bold text-foreground mb-6">
+                        {item.judul}
+                      </h2>
+                      <p className="text-l lg:text-lg text-muted-foreground ">
+                        {item.deskripsi}
+                      </p>
+                    </div>
                   </div>
                 </div>
-                <div className="w-full lg:w-1/2">
-                  <div className="max-w-lg">
-                    <h2 className="text-3xl font-bold text-foreground mb-6">
-                      {item.judul}
-                    </h2>
-                    <p className="text-lg text-muted-foreground mb-8">
-                      {item.deskripsi}
-                    </p>
-                  </div>
-                </div>
-              </div>
             </div>
           </section>
         ))}

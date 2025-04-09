@@ -8,7 +8,7 @@ import Image from "next/image";
 
 export const CarouselCompanyLogo = () => {
   return (
-    <div className="container mx-auto pt-30">
+    <div className="container mx-auto">
       <h1 className="flex justify-center text-xl md:text-4xl font-bold mb-15">
         KERJASAMA YANG TERJALIN DENGAN TVKU
       </h1>
@@ -16,25 +16,25 @@ export const CarouselCompanyLogo = () => {
         modules={[Navigation, Autoplay]}
         slidesPerView={5}
         breakpoints={{
-            320: {
-                slidesPerView: 1,
-                spaceBetween: 10,
-              },
-              // Tablet
-              640: {
-                slidesPerView: 2,
-                spaceBetween: 15,
-              },
-              // Desktop
-              1024: {
-                slidesPerView: 4,
-                spaceBetween: 20,
-              },
-              // Large Desktop
-              1280: {
-                slidesPerView: 5,
-                spaceBetween: 20,
-              },
+          320: {
+            slidesPerView: 1,
+            spaceBetween: 10,
+          },
+          // Tablet
+          640: {
+            slidesPerView: 2,
+            spaceBetween: 15,
+          },
+          // Desktop
+          1024: {
+            slidesPerView: 4,
+            spaceBetween: 20,
+          },
+          // Large Desktop
+          1280: {
+            slidesPerView: 5,
+            spaceBetween: 20,
+          },
         }}
         navigation={{
           nextEl: ".hero-next",
