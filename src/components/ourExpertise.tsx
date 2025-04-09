@@ -6,6 +6,12 @@ import axios from "axios";
 import img1 from "../../public/images/bahlil.jpeg";
 
 import { useEffect, useState } from "react";
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 interface Iexpertise {
   id: number;
@@ -35,33 +41,31 @@ export const OurExpertise = () => {
   }, []);
 
   return (
-    <div className="container mx-auto mt-30">
-      <h1 className="flex justify-center text-xl md:text-4xl font-bold mb-15">
+    <div className="container mx-auto mt-20">
+      <h1 className="text-center text-2xl md:text-4xl font-bold mb-16">
         HERE ARE SOME OF OUR EXPERTISE
       </h1>
-      <div>
+      <div className="grid grid-cols-2 gap-5 lg:gap-8">
         {expertise.map((item) => (
-          <section key={item.id} className="py-5">
-            <div className="">
-                <div className="gap-5">
-                  <div className="w-full lg:w-1/2">
-                    <div className="overflow-hidden rounded-lg">
-                      <Image src={img1} alt={item.judul} />
-                    </div>
-                  </div>
-                  <div className="w-full lg:w-1/2">
-                    <div className="max-w-lg">
-                      <h2 className="text-2xl lg:text-2xl font-bold text-foreground mb-6">
-                        {item.judul}
-                      </h2>
-                      <p className="text-l lg:text-lg text-muted-foreground ">
-                        {item.deskripsi}
-                      </p>
-                    </div>
-                  </div>
-                </div>
+          <Card key={item.id} className="overflow-hidden">
+            <div className="relative">
+              <Image
+                src={img1}
+                alt={item.judul}
+                width={400}
+                height={400}
+                className="object-cover w-full h-full"
+              />
             </div>
-          </section>
+            <CardHeader className="p-4">
+              <CardTitle className=" hover:text-primary cursor-pointer">
+                {item.judul}
+              </CardTitle>
+              <CardDescription>
+                {item.deskripsi}
+              </CardDescription>
+            </CardHeader>
+          </Card>
         ))}
       </div>
     </div>
