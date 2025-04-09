@@ -1,163 +1,83 @@
 'use client';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
-import { useRef } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import Image from 'next/image';
+const SeputarUdinus = () => {
+  interface Title {
+    id: number;
+    judul: string;
+  }
 
-const categories = [
-  {
-    title: 'Kabar Udinus',
-    items: [
-      { image: '/images/programTV/sapaDosen.png', title: 'Udinus Bagikan Seribu Takjil Gratis Untuk Mahasiswa Selama Ramadhan' },
-      { image: '/images/programTV/sapaDosen.png', title: 'Udinus Bagikan Seribu Takjil Gratis Untuk Mahasiswa Selama Ramadhan' },
-      { image: '/images/programTV/sapaDosen.png', title: 'Udinus Bagikan Seribu Takjil Gratis Untuk Mahasiswa Selama Ramadhan' },
-    ],
-  },
-  {
-    title: 'Kabar Udinus',
-    items: [
-      { image: '/images/programTV/sapaDosen.png', title: 'Udinus Bagikan Seribu Takjil Gratis Untuk Mahasiswa Selama Ramadhan' },
-      { image: '/images/programTV/sapaDosen.png', title: 'Udinus Bagikan Seribu Takjil Gratis Untuk Mahasiswa Selama Ramadhan' },
-      { image: '/images/programTV/sapaDosen.png', title: 'Udinus Bagikan Seribu Takjil Gratis Untuk Mahasiswa Selama Ramadhan' },
-    ],
-  },
-  {
-    title: 'Kabar Udinus',
-    items: [
-      { image: '/images/programTV/sapaDosen.png', title: 'Udinus Bagikan Seribu Takjil Gratis Untuk Mahasiswa Selama Ramadhan' },
-      { image: '/images/programTV/sapaDosen.png', title: 'Udinus Bagikan Seribu Takjil Gratis Untuk Mahasiswa Selama Ramadhan' },
-      { image: '/images/programTV/sapaDosen.png', title: 'Udinus Bagikan Seribu Takjil Gratis Untuk Mahasiswa Selama Ramadhan' },
-    ],
-  },
-  {
-    title: 'Kabar Udinus',
-    items: [
-      { image: '/images/programTV/sapaDosen.png', title: 'Udinus Bagikan Seribu Takjil Gratis Untuk Mahasiswa Selama Ramadhan' },
-      { image: '/images/programTV/sapaDosen.png', title: 'Udinus Bagikan Seribu Takjil Gratis Untuk Mahasiswa Selama Ramadhan' },
-      { image: '/images/programTV/sapaDosen.png', title: 'Udinus Bagikan Seribu Takjil Gratis Untuk Mahasiswa Selama Ramadhan' },
-    ],
-  },
-  {
-    title: 'Kabar Udinus',
-    items: [
-      { image: '/images/programTV/sapaDosen.png', title: 'Udinus Bagikan Seribu Takjil Gratis Untuk Mahasiswa Selama Ramadhan' },
-      { image: '/images/programTV/sapaDosen.png', title: 'Udinus Bagikan Seribu Takjil Gratis Untuk Mahasiswa Selama Ramadhan' },
-      { image: '/images/programTV/sapaDosen.png', title: 'Udinus Bagikan Seribu Takjil Gratis Untuk Mahasiswa Selama Ramadhan' },
-    ],
-  },
-  {
-    title: 'Kabar Udinus',
-    items: [
-      { image: '/images/programTV/sapaDosen.png', title: 'Udinus Bagikan Seribu Takjil Gratis Untuk Mahasiswa Selama Ramadhan' },
-      { image: '/images/programTV/sapaDosen.png', title: 'Udinus Bagikan Seribu Takjil Gratis Untuk Mahasiswa Selama Ramadhan' },
-      { image: '/images/programTV/sapaDosen.png', title: 'Udinus Bagikan Seribu Takjil Gratis Untuk Mahasiswa Selama Ramadhan' },
-    ],
-  },
-  {
-    title: 'Kabar Udinus',
-    items: [
-      { image: '/images/programTV/sapaDosen.png', title: 'Udinus Bagikan Seribu Takjil Gratis Untuk Mahasiswa Selama Ramadhan' },
-      { image: '/images/programTV/sapaDosen.png', title: 'Udinus Bagikan Seribu Takjil Gratis Untuk Mahasiswa Selama Ramadhan' },
-      { image: '/images/programTV/sapaDosen.png', title: 'Udinus Bagikan Seribu Takjil Gratis Untuk Mahasiswa Selama Ramadhan' },
-    ],
-  },
-  {
-    title: 'Kabar Udinus',
-    items: [
-      { image: '/images/programTV/sapaDosen.png', title: 'Udinus Bagikan Seribu Takjil Gratis Untuk Mahasiswa Selama Ramadhan' },
-      { image: '/images/programTV/sapaDosen.png', title: 'Udinus Bagikan Seribu Takjil Gratis Untuk Mahasiswa Selama Ramadhan' },
-      { image: '/images/programTV/sapaDosen.png', title: 'Udinus Bagikan Seribu Takjil Gratis Untuk Mahasiswa Selama Ramadhan' },
-    ],
-  },
+  interface Item {
+    id: number;
+    id_slides_title: number;
+    link: string;
+    thumbnail: string;
+    teks: string;
+  }
 
-];
+  const [titles, setTitles] = useState<Title[]>([]);
+  const [items, setItems] = useState<Item[]>([]);
+  const BASE_URL = "http://apidev.tvku.tv";
 
-type titleProps = {
-  id: number;
-  judul: string;
-  urutan: number;
-}
-
-type slidesProps = {
-  id: number;
-  id_slides_title: number;
-  thumbnail: string;
-  thumbnail_hover: string;
-  teks: string;
-  link: string;
-  deskripsi: string;
-}
-
-
-
-export default function SeputarUdinus({
-  titles,
-  data,
-}: {
-  titles: titleProps[];
-  data: slidesProps[];
-}) {
-  // Kelompokkan berdasarkan title
-  const grouped = titles.map((title) => ({
-    title: title.judul,
-    items: data.filter((item) => item.id_slides_title === title.id),
-  }));
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [resTitles, resItems] = await Promise.all([
+          axios.get(`${BASE_URL}/api/seputar-dinus-slides-title`),
+          axios.get(`${BASE_URL}/api/seputar-dinus-slider`)
+        ]);
+        setTitles(resTitles.data);
+        setItems(resItems.data.data);
+      } catch (err) {
+        console.error("Error fetching data:", err);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
-    <div className="mt-30 mb-30 px-4 sm:px-6 md:px-10 lg:px-30 space-y-6">
-      {grouped.map((group, index) => (
-        <div key={index} className="space-y-3">
-          <h2 className="text-xl font-semibold">{group.title}</h2>
-          <div className="relative">
-            <ScrollContainer items={group.items} />
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
+    <div className="px-8 py-12">
+      <h1 className="text-3xl font-bold mb-8">SEPUTAR UDINUS</h1>
 
+      {titles.map((title) => {
+        const relatedItems = items.filter(item => item.id_slides_title === title.id);
 
+        if (relatedItems.length === 0) return null; // Lewati jika tidak ada data
 
+        return (
+          <div key={title.id} className="mb-10">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl font-semibold">{title.judul}</h2>
+              <a href="#" className="text-sm text-blue-500 hover:underline">more..</a>
+            </div>
 
-function ScrollContainer({ items }: { items: slidesProps[] }) {
-
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  const scroll = (direction: 'left' | 'right') => {
-    if (scrollRef.current) {
-      const cardWidth = scrollRef.current.firstChild instanceof HTMLElement ? scrollRef.current.firstChild.offsetWidth + 16 : 0;
-      scrollRef.current.scrollBy({ left: direction === 'left' ? -cardWidth : cardWidth, behavior: 'smooth' });
-    }
-  };
-
-  const BASE_URL = 'http://apidev.tvku.tv/api';
-
-
-  return (
-    <div className="relative">
-      <button
-        onClick={() => scroll('left')}
-        className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-black bg-opacity-50 p-3 rounded-full text-white shadow-md hover:bg-opacity-75 transition"
-      >
-        <ChevronLeft size={24} />
-      </button>
-      <div ref={scrollRef} className="flex overflow-x-scroll scrollbar-hide space-x-4 p-2">
-        {items.map((item, index) => (
-          <div key={index} className="w-80 flex-shrink-0 bg-white shadow-lg rounded-2xl overflow-hidden">
-            <Image src={`${BASE_URL}${item.thumbnail}`} alt={item.teks} width={320} height={180} className="w-full h-40 object-cover" />
-            <div className="p-4 space-y-2">
-              <p className="text-sm font-medium text-gray-800">{item.teks}</p>
+            <div className="flex overflow-x-auto gap-4 pb-2">
+              {relatedItems.map(item => (
+                <a
+                  key={item.id}
+                  href={item.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="min-w-[250px] max-w-[250px] bg-white shadow-md hover:shadow-lg transition rounded overflow-hidden"
+                >
+                  <img
+                    src={`${BASE_URL}/${item.thumbnail}`}
+                    alt={item.teks}
+                    className="w-full h-40 object-cover"
+                  />
+                  
+                  <div className="p-3">
+                    <p className="text-sm font-medium line-clamp-3">{item.teks}</p>
+                  </div>
+                </a>
+              ))}
             </div>
           </div>
-        ))}
-      </div>
-      <button
-        onClick={() => scroll('right')}
-        className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-black bg-opacity-50 p-3 rounded-full text-white shadow-md hover:bg-opacity-75 transition"
-      >
-        <ChevronRight size={24} />
-      </button>
+        );
+      })}
     </div>
   );
-}
+};
+
+export default SeputarUdinus;

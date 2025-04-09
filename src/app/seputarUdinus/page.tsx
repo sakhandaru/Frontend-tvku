@@ -14,7 +14,7 @@ export default async function Seputarudinus() {
   return (
     <>
 
-        <SeputarUdinus titles={title} data={data}/>
+        <SeputarUdinus />
     </>
   );
 }
