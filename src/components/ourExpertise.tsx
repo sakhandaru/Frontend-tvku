@@ -58,10 +58,10 @@ export const OurExpertise = () => {
               />
             </div>
             <CardHeader className="p-4">
-              <CardTitle className=" hover:text-primary cursor-pointer">
+              <CardTitle className="text-lg font-semibold">
                 {item.judul}
               </CardTitle>
-              <CardDescription>
+              <CardDescription className="text-sm">
                 {item.deskripsi}
               </CardDescription>
             </CardHeader>
