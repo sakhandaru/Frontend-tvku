@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { CalendarIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import img1 from "../../public/images/bahlil.jpeg";
 
 interface NewsDataProps {
   judul: string;
@@ -21,7 +22,7 @@ export default function FeaturedNews({
   deskripsi,
   kategori,
   waktu,
-  cover,
+  // cover,
 }: NewsDataProps) {
 
   const markup = { __html: deskripsi };
@@ -29,7 +30,7 @@ export default function FeaturedNews({
   return (
     <div className="relative aspect-video overflow-hidden rounded-lg">
       <Image
-        src={cover}
+        src={img1}
         alt={judul}
         width={1200}
         height={600}

@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/card";
 import { Clock } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import img1 from "../../public/images/bahlil.jpeg";
 
 interface newsDataProps {
   judul: string;
@@ -28,14 +29,14 @@ export default function NewsCard({
   deskripsi,
   kategori,
   waktu,
-  cover,
+  // cover,
 }: newsDataProps) {
   const markup = { __html: deskripsi };
   return (
       <Card className="overflow-hidden">
         <div className="aspect-video relative">
           <Image
-            src={cover}
+            src={img1}
             alt="bahlil"
             width={500}
             height={500}

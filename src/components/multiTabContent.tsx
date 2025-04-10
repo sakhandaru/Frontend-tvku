@@ -1,4 +1,4 @@
-'use clientgit '
+"use client"
 
 import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -30,6 +30,8 @@ const beritaData: NewsData[] = newsdatas.data;
 const kategoriData: NewsKategoriProps[] = kategoridata;
 
 export function MultiTabContent({categories}: { categories: NewsKategoriProps[];}) {
+  
+
   return (
     <Tabs defaultValue={String(categories[1]?.id_kategori)} className="gap-10">
       <TabsList>
