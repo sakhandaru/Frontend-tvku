@@ -54,20 +54,19 @@ export const OurExpertise = () => {
       <h1 className="text-center text-2xl md:text-4xl font-bold mb-16">
         HERE ARE SOME OF OUR EXPERTISE
       </h1>
-      <div className="grid grid-cols-2 gap-5 lg:gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-8">
         {expertise1.map((item) => (
           <Card key={item.id} className="overflow-hidden">
-            <div className="relative">
+            <div className="relative w-full h-[300px]">
               <Image
                 src={img1}
                 alt={item.judul}
-                width={400}
-                height={400}
-                className="object-cover w-full h-full"
+                fill
+                className="object-cover"
               />
             </div>
             <CardHeader className="p-4">
-              <CardTitle className="text-lg font-semibold">
+              <CardTitle className="text-l md:text-lg font-semibold">
                 {item.judul}
               </CardTitle>
               <CardDescription className="text-sm">
@@ -77,16 +76,16 @@ export const OurExpertise = () => {
           </Card>
         ))}
       </div>
-      <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 lg:gap-8 mt-15">
+      <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 lg:gap-8 mt-10">
         {expertise2.map((item) => (
           <Card key={item.id} className="overflow-hidden">
             <div className="relative">
               <Image
                 src={item.thumbnail}
                 alt={item.judul}
-                width={400}
-                height={400}
-                className="object-cover w-full h-full"
+                width={300}
+                height={300}
+                className="object-cover"
               />
             </div>
             <CardHeader className="p-4">
