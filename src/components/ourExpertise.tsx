@@ -81,7 +81,7 @@ export const OurExpertise = () => {
           <Card key={item.id} className="overflow-hidden">
             <div className="relative">
               <Image
-                src={item.thumbnail}
+                src={img1}
                 alt={item.judul}
                 width={300}
                 height={300}

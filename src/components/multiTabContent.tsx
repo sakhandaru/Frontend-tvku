@@ -35,6 +35,7 @@ export function MultiTabContent({categories}: { categories: NewsKategoriProps[];
   return (
     <Tabs defaultValue={String(categories[1]?.id_kategori)} className="gap-10">
       <TabsList>
+        
         {kategoriData.map((category) => (
           <TabsTrigger
             key={category.id_kategori}

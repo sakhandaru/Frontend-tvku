@@ -28,7 +28,7 @@ export default function FeaturedNews({
   const markup = { __html: deskripsi };
 
   return (
-    <div className="relative aspect-video overflow-hidden rounded-lg">
+    <div className="relative overflow-hidden rounded-lg">
       <Image
         src={img1}
         alt={judul}

@@ -1,6 +1,19 @@
+"use client";
+
 import FeaturedNews from "@/components/featuredNews";
-import { MultiTabContent } from "@/components/multiTabContent";
 import NewsList from "@/components/newsList";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import NewsCard from "./newsCard";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+  PaginationEllipsis,
+} from "@/components/ui/pagination";
 
 interface Inewsdata {
   id: number;
@@ -9,45 +22,237 @@ interface Inewsdata {
   waktu: string;
   kategori: Ikategori;
   cover: string;
+  path_media: string;
+  link: string;
 }
 
 interface Ikategori {
   id_kategori: number;
   nama: string;
   slug: string;
+  top_nav: string;
+  urutan: number;
+}
+
+interface ApiResponse {
+  current_page: number;
+  per_page: number;
+  total: number;
+  last_page: number;
+  next_page_url: string | null;
+  prev_page_url: string | null;
   data: Inewsdata[];
 }
+
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-const [newsdatas, kategoridata] = await Promise.all([
-  fetch(`${BASE_URL}/berita`).then((res) => res.json()),
-  fetch(`${BASE_URL}/kategori`).then((res) => res.json()),
-]);
-
-const beritaData: Inewsdata[] = newsdatas.data;
-const kategoriData: Ikategori[] = kategoridata;
-
 function NewsPage() {
+  const [apiData, setApiData] = useState<ApiResponse | null>(null);
+  const [ , setKategoriData] = useState<Ikategori[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const [newsResponse, kategoriResponse] = await Promise.all([
+          axios.get<ApiResponse>(`${BASE_URL}/berita?page=${currentPage}`),
+          axios.get<Ikategori[]>(`${BASE_URL}/kategori`),
+        ]);
+        console.log("Fetched data for page:", currentPage, newsResponse.data); // Debug log
+        setApiData(newsResponse.data);
+        setKategoriData(kategoriResponse.data || []);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [currentPage]);
+
+  const handlePageChange = (page: number) => {
+    console.log("Changing to page:", page); // Debug log
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        Loading...
+      </div>
+    );
+  }
+
+  if (!apiData || !apiData.data.length) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        No news data available
+      </div>
+    );
+  }
+
+  const { data: beritaData, last_page } = apiData;
+
+  // Generate pagination items
+  const getPaginationItems = () => {
+    const items = [];
+    const maxVisiblePages = 5;
+    let startPage, endPage;
+
+    if (last_page <= maxVisiblePages) {
+      startPage = 1;
+      endPage = last_page;
+    } else {
+      const maxPagesBeforeCurrent = Math.floor(maxVisiblePages / 2);
+      const maxPagesAfterCurrent = Math.ceil(maxVisiblePages / 2) - 1;
+      
+      if (currentPage <= maxPagesBeforeCurrent) {
+        startPage = 1;
+        endPage = maxVisiblePages;
+      } else if (currentPage + maxPagesAfterCurrent >= last_page) {
+        startPage = last_page - maxVisiblePages + 1;
+        endPage = last_page;
+      } else {
+        startPage = currentPage - maxPagesBeforeCurrent;
+        endPage = currentPage + maxPagesAfterCurrent;
+      }
+    }
+
+    // Previous button
+    items.push(
+      <PaginationItem key="prev">
+        <PaginationPrevious
+          href="#"
+          onClick={(e) => {
+            e.preventDefault();
+            if (currentPage > 1) {
+              handlePageChange(currentPage - 1);
+            }
+          }}
+          className={currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""}
+        />
+      </PaginationItem>
+    );
+
+    // First page
+    if (startPage > 1) {
+      items.push(
+        <PaginationItem key={1}>
+          <PaginationLink
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              handlePageChange(1);
+            }}
+            isActive={1 === currentPage}
+          >
+            1
+          </PaginationLink>
+        </PaginationItem>
+      );
+      if (startPage > 2) {
+        items.push(
+          <PaginationItem key="ellipsis-start">
+            <PaginationEllipsis />
+          </PaginationItem>
+        );
+      }
+    }
+
+    // Page numbers
+    for (let page = startPage; page <= endPage; page++) {
+      items.push(
+        <PaginationItem key={page}>
+          <PaginationLink
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              handlePageChange(page);
+            }}
+            isActive={page === currentPage}
+          >
+            {page}
+          </PaginationLink>
+        </PaginationItem>
+      );
+    }
+
+    // Last page
+    if (endPage < last_page) {
+      if (endPage < last_page - 1) {
+        items.push(
+          <PaginationItem key="ellipsis-end">
+            <PaginationEllipsis />
+          </PaginationItem>
+        );
+      }
+      items.push(
+        <PaginationItem key={last_page}>
+          <PaginationLink
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              handlePageChange(last_page);
+            }}
+            isActive={last_page === currentPage}
+          >
+            {last_page}
+          </PaginationLink>
+        </PaginationItem>
+      );
+    }
+
+    // Next button
+    items.push(
+      <PaginationItem key="next">
+        <PaginationNext
+          href="#"
+          onClick={(e) => {
+            e.preventDefault();
+            if (currentPage < last_page) {
+              handlePageChange(currentPage + 1);
+            }
+          }}
+          className={currentPage === last_page ? "opacity-50 cursor-not-allowed" : ""}
+        />
+      </PaginationItem>
+    );
+
+    return items;
+  };
+
   return (
     <div className="bg-gray-100 pb-6 pt-25">
       <div className="md:container md:mx-auto">
         <div className="md:flex gap-6 mb-6">
-          <div className="mb-6">
+          <div className="mb-6 w-2/3">
             <FeaturedNews
-              cover={beritaData[0].cover}
-              judul={beritaData[0].judul}
-              deskripsi={beritaData[0].deskripsi}
-              waktu={beritaData[0].waktu}
-              kategori={beritaData[0].kategori}
+              cover={beritaData[0]?.cover || ""}
+              judul={beritaData[0]?.judul || ""}
+              deskripsi={beritaData[0]?.deskripsi || ""}
+              waktu={beritaData[0]?.waktu || ""}
+              kategori={
+                beritaData[0]?.kategori || {
+                  id_kategori: 0,
+                  nama: "",
+                  slug: "",
+                  top_nav: "0",
+                  urutan: 0,
+                }
+              }
             />
           </div>
           <div className="space-y-4">
             <h2 className="text-2xl md:text-4xl font-bold mb-6">
               Berita Terbaru
             </h2>
-            {beritaData.slice(1, 5).map((news, index) => (
+            {beritaData.slice(1, 6).map((news) => (
               <NewsList
-                key={index}
+                key={news.id}
                 judul={news.judul}
                 waktu={news.waktu}
                 kategori={news.kategori}
@@ -55,14 +260,29 @@ function NewsPage() {
             ))}
           </div>
         </div>
-        <div>
-          <div className=" justify-between items-center mb-6">
-            <h1 className="text-2xl md:text-4xl font-bold mb-4">
-              Berita Terkini
-            </h1>
-            <div>
-              <MultiTabContent categories={kategoriData} />
-            </div>
+        <div className="justify-between items-center my-6">
+          <h1 className="text-2xl md:text-4xl font-bold mb-4">
+            Berita Terkini
+          </h1>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {beritaData.map((news) => (
+              <NewsCard
+                key={news.id}
+                cover={news.cover}
+                judul={news.judul}
+                deskripsi={news.deskripsi}
+                waktu={news.waktu}
+                kategori={news.kategori}
+              />
+            ))}
+          </div>
+          
+          <div className="mt-8 flex justify-center">
+            <Pagination>
+              <PaginationContent>
+                {getPaginationItems()}
+              </PaginationContent>
+            </Pagination>
           </div>
         </div>
       </div>
@@ -70,5 +290,4 @@ function NewsPage() {
   );
 }
 
-export default NewsPage
-
+export default NewsPage;
