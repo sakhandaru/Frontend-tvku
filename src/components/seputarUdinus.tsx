@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 import axios from "axios";
 
 const SeputarUdinus = () => {
@@ -73,7 +74,7 @@ const SeputarUdinus = () => {
                       alt={item.teks}
                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                     /> */}
-                    <img
+                    <Image
                       src="/images/program.jpg"
                       alt="Dummy Thumbnail"
                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"

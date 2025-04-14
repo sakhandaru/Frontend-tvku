@@ -1,6 +1,5 @@
 import React from "react";
 import SeputarUdinus from "@/components/seputarUdinus";
-import Benefit from "@/components/iklanBenefit";
 import axios from "axios";
 
 export default async function Seputarudinus() {
@@ -8,8 +7,6 @@ export default async function Seputarudinus() {
   const title = response.data;
   console.log(title);
 
-  // Define the data variable
-  const data = []; // Replace with actual data or fetch logic if needed
 
   return (
     <>

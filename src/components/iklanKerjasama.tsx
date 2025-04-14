@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const Kerjasama = () => {
   return (
     <>
@@ -13,7 +15,7 @@ const Kerjasama = () => {
             "/images/tvkublue.png",
             "/images/tvkublue.png",
           ].map((logo, i) => (
-            <img
+            <Image
               key={i}
               src={logo}
               alt="Partner Logo"
