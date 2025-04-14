@@ -47,6 +47,7 @@ interface ApiResponse {
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 function NewsPage() {
+  const [newsData, setNewsData] = useState<Inewsdata[]>([]);
   const [apiData, setApiData] = useState<ApiResponse | null>(null);
   const [, setKategoriData] = useState<Ikategori[]>([]);
   const [loading, setLoading] = useState(true);
@@ -56,13 +57,13 @@ function NewsPage() {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const [newsResponse, kategoriResponse] = await Promise.all([
-          axios.get<ApiResponse>(
-            `${BASE_URL}/berita?current_page=${currentPage}`
-          ),
+        const [latestNewsResponse, newsResponse, kategoriResponse] = await Promise.all([
+          axios.get<{ data: Inewsdata[] }>(`${BASE_URL}/berita?per_page=5`),
+          axios.get<ApiResponse>(`${BASE_URL}/berita?current_page=${currentPage}`),
           axios.get<Ikategori[]>(`${BASE_URL}/kategori`),
         ]);
-        console.log("Fetched data for page:", currentPage, newsResponse.data); // Debug log
+        
+        setNewsData(latestNewsResponse.data.data)
         setApiData(newsResponse.data);
         setKategoriData(kategoriResponse.data || []);
       } catch (error) {
@@ -76,7 +77,7 @@ function NewsPage() {
   }, [currentPage]);
 
   const handlePageChange = (page: number) => {
-    console.log("Changing to page:", page); // Debug log
+    console.log("Changing to page:", page); 
     setCurrentPage(page);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -234,12 +235,12 @@ function NewsPage() {
         <div className="grid gap-6 lg:grid-cols-3">
           <div className="lg:col-span-2">
             <FeaturedNews
-              cover={beritaData[0]?.cover || ""}
-              judul={beritaData[0]?.judul || ""}
-              deskripsi={beritaData[0]?.deskripsi || ""}
-              waktu={beritaData[0]?.waktu || ""}
+              cover={beritaData[0].cover || ""}
+              judul={beritaData[0].judul || ""}
+              deskripsi={beritaData[0].deskripsi || ""}
+              waktu={beritaData[0].waktu || ""}
               kategori={
-                beritaData[0]?.kategori || {
+                beritaData[0].kategori || {
                   id_kategori: 0,
                   nama: "",
                   slug: "",
@@ -250,10 +251,10 @@ function NewsPage() {
             />
           </div>
           <div className="space-y-4">
-            <h2 className="font-bold text-2xl mb-4">Trending Now</h2>
-            <div className="border rounded-lg p-4">
+            <div className="border rounded-lg p-4 bg-white">
+              <h2 className="font-bold text-2xl mb-4">Trending Now</h2>
               <div className="space-y-4">
-                {beritaData.slice(1, 6).map((news) => (
+                {newsData.map((news) => (
                   <NewsList
                     key={news.id}
                     judul={news.judul}
