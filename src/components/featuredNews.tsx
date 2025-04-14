@@ -1,6 +1,10 @@
 import Image from "next/image";
-import { CalendarIcon } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardTitle,
+} from "@/components/ui/card";
 import img1 from "../../public/images/bahlil.jpeg";
 
 interface NewsDataProps {
@@ -22,35 +26,28 @@ export default function FeaturedNews({
   deskripsi,
   kategori,
   waktu,
-  // cover,
-}: NewsDataProps) {
-
-  const markup = { __html: deskripsi };
+}: // cover,
+NewsDataProps) {
 
   return (
-    <div className="relative overflow-hidden rounded-lg">
-      <Image
-        src={img1}
-        alt={judul}
-        width={1200}
-        height={600}
-        className="object-cover"
-        priority
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
-      <div className="absolute bottom-0 left-0 p-6">
-        <Badge className="mb-2">{kategori.nama}</Badge>
-        <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-2">
-          {judul}
-        </h1>
-        <p className="text-white/90 mb-4 max-w-2xl" dangerouslySetInnerHTML={markup}/>
-        <div className="flex items-center gap-4 text-white/80 text-sm">
-          <div className="flex items-center gap-1">
-            <CalendarIcon className="h-4 w-4" />
-            <span>{waktu}</span>
-          </div>
-        </div>
+    <Card className="overflow-hidden">
+      <div className="relative h-[300px] md:h-[400px]">
+        <Image src={img1} alt={judul} fill className="object-cover" priority />
       </div>
-    </div>
+      <CardContent className="p-6">
+        <div className="flex items-center gap-2 mb-2">
+          <span className="text-xs font-medium px-2 py-1 rounded-full">
+            {kategori.nama}
+          </span>
+          <span className="text-xs text-muted-foreground">{waktu}</span>
+        </div>
+        <CardTitle className="text-2xl md:text-3xl mb-2 group-hover:text-primary transition-colors">
+          {judul}
+        </CardTitle>
+        <CardDescription className="text-base">
+          {deskripsi}
+        </CardDescription>
+      </CardContent>
+    </Card>
   );
 }

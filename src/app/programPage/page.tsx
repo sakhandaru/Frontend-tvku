@@ -4,7 +4,7 @@ export default function ProgramPage() {
   
   return (
     <>
-      <div>
+      <div className="">
         <TVProgramPage />
       </div>
     </>

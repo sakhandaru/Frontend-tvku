@@ -48,7 +48,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 function NewsPage() {
   const [apiData, setApiData] = useState<ApiResponse | null>(null);
-  const [ , setKategoriData] = useState<Ikategori[]>([]);
+  const [, setKategoriData] = useState<Ikategori[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -57,7 +57,9 @@ function NewsPage() {
       setLoading(true);
       try {
         const [newsResponse, kategoriResponse] = await Promise.all([
-          axios.get<ApiResponse>(`${BASE_URL}/berita?current_page=${currentPage}`),
+          axios.get<ApiResponse>(
+            `${BASE_URL}/berita?current_page=${currentPage}`
+          ),
           axios.get<Ikategori[]>(`${BASE_URL}/kategori`),
         ]);
         console.log("Fetched data for page:", currentPage, newsResponse.data); // Debug log
@@ -109,7 +111,7 @@ function NewsPage() {
     } else {
       const maxPagesBeforeCurrent = Math.floor(maxVisiblePages / 2);
       const maxPagesAfterCurrent = Math.ceil(maxVisiblePages / 2) - 1;
-      
+
       if (currentPage <= maxPagesBeforeCurrent) {
         startPage = 1;
         endPage = maxVisiblePages;
@@ -216,7 +218,9 @@ function NewsPage() {
               handlePageChange(currentPage + 1);
             }
           }}
-          className={currentPage === last_page ? "opacity-50 cursor-not-allowed" : ""}
+          className={
+            currentPage === last_page ? "opacity-50 cursor-not-allowed" : ""
+          }
         />
       </PaginationItem>
     );
@@ -225,10 +229,10 @@ function NewsPage() {
   };
 
   return (
-    <div className="bg-gray-100 pb-6 pt-25">
+    <div className="bg-gray-100 pb-6 pt-25 px-3">
       <div className="md:container md:mx-auto">
-        <div className="md:flex gap-6 mb-6">
-          <div className="mb-6 w-2/3">
+        <div className="grid gap-6 lg:grid-cols-3">
+          <div className="lg:col-span-2">
             <FeaturedNews
               cover={beritaData[0]?.cover || ""}
               judul={beritaData[0]?.judul || ""}
@@ -246,17 +250,19 @@ function NewsPage() {
             />
           </div>
           <div className="space-y-4">
-            <h2 className="text-2xl md:text-4xl font-bold mb-6">
-              Berita Terbaru
-            </h2>
-            {beritaData.slice(1, 6).map((news) => (
-              <NewsList
-                key={news.id}
-                judul={news.judul}
-                waktu={news.waktu}
-                kategori={news.kategori}
-              />
-            ))}
+            <h2 className="font-bold text-2xl mb-4">Trending Now</h2>
+            <div className="border rounded-lg p-4">
+              <div className="space-y-4">
+                {beritaData.slice(1, 6).map((news) => (
+                  <NewsList
+                    key={news.id}
+                    judul={news.judul}
+                    deskripsi={news.deskripsi}
+                    kategori={news.kategori}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
         </div>
         <div className="justify-between items-center my-6">
@@ -275,12 +281,10 @@ function NewsPage() {
               />
             ))}
           </div>
-          
+
           <div className="mt-8 flex justify-center">
             <Pagination>
-              <PaginationContent>
-                {getPaginationItems()}
-              </PaginationContent>
+              <PaginationContent>{getPaginationItems()}</PaginationContent>
             </Pagination>
           </div>
         </div>

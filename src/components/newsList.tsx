@@ -3,7 +3,7 @@ import { Badge } from "./ui/badge";
 
 interface NewsDataProps {
   judul: string;
-  waktu: string;
+  deskripsi: string;
   kategori: NewsKategoriProps;
 }
 
@@ -13,14 +13,18 @@ interface NewsKategoriProps {
   slug: string;
 }
 
-const NewsList = ({ judul, kategori, waktu }: NewsDataProps) => {
+const NewsList = ({ judul, deskripsi, kategori }: NewsDataProps) => {
   return (
-    <div className="border-b pb-4 last:border-0">
-      <Badge variant="outline" className="mb-1">
-        {kategori?.nama}
-      </Badge>
-      <h3 className="font-medium hover:text-primary cursor-pointer">{judul}</h3>
-      <p className="text-sm text-muted-foreground">{waktu}</p>
+    <div className="flex gap-4 pb-4 border-b last:border-0 last:pb-0">
+      <div>
+        <Badge variant="outline" className="mb-1">
+          {kategori?.nama}
+        </Badge>
+        <div className="font-bold hover:text-primary transition-colors line-clamp-2">
+          {judul}
+        </div>
+        <div className="font-light line-clamp-1">{deskripsi}</div>
+      </div>
     </div>
   );
 };
