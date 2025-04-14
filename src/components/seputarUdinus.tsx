@@ -68,9 +68,14 @@ const SeputarUdinus = () => {
                     rel="noopener noreferrer"
                     className="group relative min-w-[320px] max-w-[320px] aspect-video rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
                   >
-                    <img
+                    {/* <img
                       src={`/images/programTV/${item.thumbnail || "sapaDosen.png"}`}
                       alt={item.teks}
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    /> */}
+                    <img
+                      src="/images/program.jpg"
+                      alt="Dummy Thumbnail"
                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                     />
 

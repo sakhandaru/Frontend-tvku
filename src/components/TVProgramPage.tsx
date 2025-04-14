@@ -42,7 +42,7 @@ const programs: Program[] = [
     title: "Kabar Sepekan",
     description:
       "Kabar Sepekan menyajikan berita dan informasi terkini yang dirangkum dalam sepekan kepada pemirsa.",
-    image: "/images/programTV/kabarSepekan.jpg",
+    image: "/images/program.jpg",
   },
   {
     id: 5,
