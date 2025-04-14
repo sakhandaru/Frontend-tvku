@@ -57,7 +57,7 @@ function NewsPage() {
       setLoading(true);
       try {
         const [newsResponse, kategoriResponse] = await Promise.all([
-          axios.get<ApiResponse>(`${BASE_URL}/berita?page=${currentPage}`),
+          axios.get<ApiResponse>(`${BASE_URL}/berita?current_page=${currentPage}`),
           axios.get<Ikategori[]>(`${BASE_URL}/kategori`),
         ]);
         console.log("Fetched data for page:", currentPage, newsResponse.data); // Debug log
@@ -205,7 +205,6 @@ function NewsPage() {
         </PaginationItem>
       );
     }
-
     // Next button
     items.push(
       <PaginationItem key="next">
