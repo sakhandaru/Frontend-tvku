@@ -66,7 +66,7 @@ function NewsPage() {
             axios.get<Ikategori[]>(`${BASE_URL}/kategori`),
           ]);
 
-        setNewsData(latestNewsResponse.data.data);
+          setNewsData(latestNewsResponse.data.data);
         setApiData(newsResponse.data);
         setKategoriData(kategoriResponse.data || []);
       } catch (error) {
