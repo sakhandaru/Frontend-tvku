@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -9,34 +9,33 @@ interface NewsData {
   deskripsi: string;
   waktu: string;
   cover: string;
-  kategori: NewsKategoriProps;
+  kategori: Ikategori;
 }
 
-interface NewsKategoriProps {
+interface Ikategori {
   id_kategori: number;
   nama: string;
   slug: string;
-  data: NewsData[];
 }
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+interface MultiTabContentProps {
+  categories: Ikategori[];
+  newsData: NewsData[];
+}
 
-const [newsdatas, kategoridata] = await Promise.all([
-  fetch(`${BASE_URL}/berita`).then((res) => res.json()),
-  fetch(`${BASE_URL}/kategori`).then((res) => res.json()),
-]);
-
-const beritaData: NewsData[] = newsdatas.data;
-const kategoriData: NewsKategoriProps[] = kategoridata;
-
-export function MultiTabContent({categories}: { categories: NewsKategoriProps[];}) {
-  
+export function MultiTabContent({
+  categories,
+  newsData,
+}: MultiTabContentProps) {
+  const hasCategories = newsData.length > 0;
 
   return (
-    <Tabs defaultValue={String(categories[1]?.id_kategori)} className="gap-10">
-      <TabsList>
-        
-        {kategoriData.map((category) => (
+    <Tabs defaultValue={hasCategories ? "all" : undefined} className="gap-5">
+      <TabsList className="border rounded-lg py-5 bg-white">
+        <TabsTrigger value="all" className="text-md font-semibold">
+          All
+        </TabsTrigger>
+        {categories.map((category) => (
           <TabsTrigger
             key={category.id_kategori}
             value={String(category.id_kategori)}
@@ -47,13 +46,31 @@ export function MultiTabContent({categories}: { categories: NewsKategoriProps[];
         ))}
       </TabsList>
       <div>
-        {kategoriData.map((category) => (
+        <TabsContent value="all">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {newsData.map((news, index) => (
+              <NewsCard
+                key={index}
+                cover={news.cover}
+                judul={news.judul}
+                deskripsi={news.deskripsi}
+                waktu={news.waktu}
+                kategori={news.kategori}
+              />
+            ))}
+          </div>
+        </TabsContent>
+        {categories.map((category) => (
           <TabsContent
             key={category.id_kategori}
             value={String(category.id_kategori)}
           >
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {beritaData.filter((news) => news.kategori?.id_kategori === category.id_kategori).map((news, index) => (
+              {newsData
+                .filter(
+                  (news) => news.kategori?.id_kategori === category.id_kategori
+                )
+                .map((news, index) => (
                   <NewsCard
                     key={index}
                     cover={news.cover}

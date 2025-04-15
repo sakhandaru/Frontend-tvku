@@ -4,7 +4,7 @@ import FeaturedNews from "@/components/featuredNews";
 import NewsList from "@/components/newsList";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import NewsCard from "./newsCard";
+import { MultiTabContent } from "./multiTabContent";
 import {
   Pagination,
   PaginationContent,
@@ -49,7 +49,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 function NewsPage() {
   const [newsData, setNewsData] = useState<Inewsdata[]>([]);
   const [apiData, setApiData] = useState<ApiResponse | null>(null);
-  const [, setKategoriData] = useState<Ikategori[]>([]);
+  const [kategoriData, setKategoriData] = useState<Ikategori[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -57,13 +57,16 @@ function NewsPage() {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const [latestNewsResponse, newsResponse, kategoriResponse] = await Promise.all([
-          axios.get<{ data: Inewsdata[] }>(`${BASE_URL}/berita?per_page=5`),
-          axios.get<ApiResponse>(`${BASE_URL}/berita?current_page=${currentPage}`),
-          axios.get<Ikategori[]>(`${BASE_URL}/kategori`),
-        ]);
-        
-        setNewsData(latestNewsResponse.data.data)
+        const [latestNewsResponse, newsResponse, kategoriResponse] =
+          await Promise.all([
+            axios.get<{ data: Inewsdata[] }>(`${BASE_URL}/berita?per_page=5`),
+            axios.get<ApiResponse>(
+              `${BASE_URL}/berita?current_page=${currentPage}`
+            ),
+            axios.get<Ikategori[]>(`${BASE_URL}/kategori`),
+          ]);
+
+        setNewsData(latestNewsResponse.data.data);
         setApiData(newsResponse.data);
         setKategoriData(kategoriResponse.data || []);
       } catch (error) {
@@ -77,7 +80,7 @@ function NewsPage() {
   }, [currentPage]);
 
   const handlePageChange = (page: number) => {
-    console.log("Changing to page:", page); 
+    console.log("Changing to page:", page);
     setCurrentPage(page);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -271,7 +274,7 @@ function NewsPage() {
             Berita Terkini
           </h1>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {beritaData.map((news) => (
+            {/* {beritaData.map((news) => (
               <NewsCard
                 key={news.id}
                 cover={news.cover}
@@ -280,9 +283,11 @@ function NewsPage() {
                 waktu={news.waktu}
                 kategori={news.kategori}
               />
-            ))}
+            ))} */}
           </div>
-
+          <div>
+            <MultiTabContent categories={kategoriData} newsData={beritaData} />
+          </div>
           <div className="mt-8 flex justify-center">
             <Pagination>
               <PaginationContent>{getPaginationItems()}</PaginationContent>
