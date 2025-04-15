@@ -1,40 +1,49 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import NewsCard from "./newsCard"
-import { ChevronDown } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { useState } from "react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import NewsCard from "./newsCard";
+import { ChevronDown } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 interface NewsData {
-  judul: string
-  deskripsi: string
-  waktu: string
-  cover: string
-  kategori: Ikategori
+  judul: string;
+  deskripsi: string;
+  waktu: string;
+  cover: string;
+  kategori: Ikategori;
 }
 
 interface Ikategori {
-  id_kategori: number
-  nama: string
-  slug: string
+  id_kategori: number;
+  nama: string;
+  slug: string;
 }
 
 interface MultiTabContentProps {
-  categories: Ikategori[]
-  newsData: NewsData[]
+  categories: Ikategori[];
+  newsData: NewsData[];
 }
 
-export function MultiTabContent({ categories, newsData }: MultiTabContentProps) {
-  
-  const [activeTab, setActiveTab] = useState<string>("all")
+export function MultiTabContent({
+  categories,
+  newsData,
+}: MultiTabContentProps) {
+  const [activeTab, setActiveTab] = useState<string>("all");
 
   const getActiveTabName = () => {
-    if (activeTab === "all") return "All"
-    const category = categories.find((cat) => String(cat.id_kategori) === activeTab)
-    return category ? category.nama : "All"
-  }
+    if (activeTab === "all") return "All";
+    const category = categories.find(
+      (cat) => String(cat.id_kategori) === activeTab
+    );
+    return category ? category.nama : "All";
+  };
 
   return (
     <div className="w-full space-y-4">
@@ -48,14 +57,19 @@ export function MultiTabContent({ categories, newsData }: MultiTabContentProps) 
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-full" align="start">
-            <DropdownMenuItem onClick={() => setActiveTab("all")} className={activeTab === "all" ? "bg-muted" : ""}>
+            <DropdownMenuItem
+              onClick={() => setActiveTab("all")}
+              className={activeTab === "all" ? "bg-muted" : ""}
+            >
               All
             </DropdownMenuItem>
             {categories.map((category) => (
               <DropdownMenuItem
                 key={category.id_kategori}
                 onClick={() => setActiveTab(String(category.id_kategori))}
-                className={activeTab === String(category.id_kategori) ? "bg-muted" : ""}
+                className={
+                  activeTab === String(category.id_kategori) ? "bg-muted" : ""
+                }
               >
                 {category.nama}
               </DropdownMenuItem>
@@ -73,7 +87,10 @@ export function MultiTabContent({ categories, newsData }: MultiTabContentProps) 
       >
         <div className="hidden md:block overflow-x-auto pb-2">
           <TabsList className="border py-2 px-1 bg-white h-auto inline-flex flex-nowrap min-w-full">
-            <TabsTrigger value="all" className="text-sm lg:text-md font-semibold px-3 py-1.5">
+            <TabsTrigger
+              value="all"
+              className="text-sm lg:text-md font-semibold px-3 py-1.5"
+            >
               All
             </TabsTrigger>
             {categories.map((category) => (
@@ -104,14 +121,14 @@ export function MultiTabContent({ categories, newsData }: MultiTabContentProps) 
             </div>
           </TabsContent>
           {categories.map((category) => (
-            <TabsContent key={category.id_kategori} value={String(category.id_kategori)}>
+            <TabsContent
+              key={category.id_kategori}
+              value={String(category.id_kategori)}
+            >
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                 {newsData
                   .filter((news) => news.kategori?.id_kategori === category.id_kategori)
-                  .map((news, index) => {
-                    console.log(news.kategori?.id_kategori, category.id_kategori);
-                    
-                    return(
+                  .map((news, index) => (
                     <NewsCard
                       key={index}
                       cover={news.cover}
@@ -120,12 +137,12 @@ export function MultiTabContent({ categories, newsData }: MultiTabContentProps) 
                       waktu={news.waktu}
                       kategori={news.kategori}
                     />
-                  )})}
+                  ))}
               </div>
             </TabsContent>
           ))}
         </div>
       </Tabs>
     </div>
-  )
+  );
 }
