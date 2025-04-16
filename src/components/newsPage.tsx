@@ -63,12 +63,12 @@ function NewsPage() {
             axios.get<ApiResponse>(
               `${BASE_URL}/berita?current_page=${currentPage}`
             ),
-            axios.get<Ikategori[]>(`${BASE_URL}/kategori`),
+            axios.get<{ data: Ikategori[]}>(`${BASE_URL}/kategori`),
           ]);
 
           setNewsData(latestNewsResponse.data.data);
         setApiData(newsResponse.data);
-        setKategoriData(kategoriResponse.data || []);
+        setKategoriData(kategoriResponse.data.data || []);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -269,22 +269,10 @@ function NewsPage() {
             </div>
           </div>
         </div>
-        <div className="justify-between items-center my-6">
-          <h1 className="text-2xl md:text-4xl font-bold mb-4">
+        <div className="justify-between items-center mt-4">
+          <h1 className="text-2xl md:text-4xl font-bold mb-6">
             Berita Terkini
           </h1>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* {beritaData.map((news) => (
-              <NewsCard
-                key={news.id}
-                cover={news.cover}
-                judul={news.judul}
-                deskripsi={news.deskripsi}
-                waktu={news.waktu}
-                kategori={news.kategori}
-              />
-            ))} */}
-          </div>
           <div>
             <MultiTabContent categories={kategoriData} newsData={beritaData} />
           </div>

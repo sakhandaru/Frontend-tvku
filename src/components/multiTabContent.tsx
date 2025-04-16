@@ -63,17 +63,18 @@ export function MultiTabContent({
             >
               All
             </DropdownMenuItem>
-            {categories.map((category) => (
-              <DropdownMenuItem
-                key={category.id_kategori}
-                onClick={() => setActiveTab(String(category.id_kategori))}
-                className={
-                  activeTab === String(category.id_kategori) ? "bg-muted" : ""
-                }
-              >
-                {category.nama}
-              </DropdownMenuItem>
-            ))}
+            {Array.isArray(categories) &&
+              categories.map((category) => (
+                <DropdownMenuItem
+                  key={category.id_kategori}
+                  onClick={() => setActiveTab(String(category.id_kategori))}
+                  className={
+                    activeTab === String(category.id_kategori) ? "bg-muted" : ""
+                  }
+                >
+                  {category.nama}
+                </DropdownMenuItem>
+              ))}
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
@@ -93,15 +94,16 @@ export function MultiTabContent({
             >
               All
             </TabsTrigger>
-            {categories.map((category) => (
-              <TabsTrigger
-                key={category.id_kategori}
-                value={String(category.id_kategori)}
-                className="text-sm lg:text-md font-semibold px-3 py-1.5 whitespace-nowrap"
-              >
-                {category.nama}
-              </TabsTrigger>
-            ))}
+            {Array.isArray(categories) &&
+              categories.map((category) => (
+                <TabsTrigger
+                  key={category.id_kategori}
+                  value={String(category.id_kategori)}
+                  className="text-sm lg:text-md font-semibold px-3 py-1.5 whitespace-nowrap"
+                >
+                  {category.nama}
+                </TabsTrigger>
+              ))}
           </TabsList>
         </div>
 
@@ -120,27 +122,31 @@ export function MultiTabContent({
               ))}
             </div>
           </TabsContent>
-          {categories.map((category) => (
-            <TabsContent
-              key={category.id_kategori}
-              value={String(category.id_kategori)}
-            >
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-                {newsData
-                  .filter((news) => news.kategori?.id_kategori === category.id_kategori)
-                  .map((news, index) => (
-                    <NewsCard
-                      key={index}
-                      cover={news.cover}
-                      judul={news.judul}
-                      deskripsi={news.deskripsi}
-                      waktu={news.waktu}
-                      kategori={news.kategori}
-                    />
-                  ))}
-              </div>
-            </TabsContent>
-          ))}
+          {Array.isArray(categories) &&
+            categories.map((category) => (
+              <TabsContent
+                key={category.id_kategori}
+                value={String(category.id_kategori)}
+              >
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+                  {newsData
+                    .filter(
+                      (news) =>
+                        news.kategori?.id_kategori === category.id_kategori
+                    )
+                    .map((news, index) => (
+                      <NewsCard
+                        key={index}
+                        cover={news.cover}
+                        judul={news.judul}
+                        deskripsi={news.deskripsi}
+                        waktu={news.waktu}
+                        kategori={news.kategori}
+                      />
+                    ))}
+                </div>
+              </TabsContent>
+            ))}
         </div>
       </Tabs>
     </div>
