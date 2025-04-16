@@ -5,36 +5,53 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 import "swiper/css";
 import "swiper/css/navigation";
 
 interface ScheduleItem {
-  time: string;
-  title: string;
+  id: number;
+  id_hari: number;
+  jam_awal: string;
+  jam_akhir: string;
+  acara: string;
+  link: string;
+  uploader: number;
+  waktu: string;
+  hari: {
+    id: number;
+    hari: string;
+  };
 }
 
-const schedules: ScheduleItem[] = [
-  { time: "06:15 WIB", title: "Status Selebriti" },
-  { time: "07:30 WIB", title: "GASPOL (Games Asyik Pali...)" },
-  { time: "09:00 WIB", title: "Lucky Voice" },
-  { time: "10:30 WIB", title: "FTV Pagi: Fix Sudah Jatuh K..." },
-  { time: "12:30 WIB", title: "Liputan 6 Siang" },
-  { time: "14:00 WIB", title: "Status Selebriti" },
-  { time: "15:30 WIB", title: "GASPOL (Games Asyik Pali...)" },
-  { time: "17:00 WIB", title: "Lucky Voice" },
-  { time: "18:30 WIB", title: "FTV Pagi: Fix Sudah Jatuh K..." },
-  { time: "20:00 WIB", title: "Liputan 6 Siang" },
-];
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 const Schedule = () => {
   const swiperRef = useRef<SwiperType | null>(null);
+  const [schedules, setSchedules] = useState<ScheduleItem[]>([]);
+
+  useEffect(() => {
+    const fetchSchedules = async () => {
+      try {
+        const response = await axios.get<ScheduleItem>(
+          `${BASE_URL}/jadwal-acara/564`
+        );
+        console.log("Fetched Data:", response.data); // Debug log
+        setSchedules([response.data]);
+      } catch (error) {
+        console.error("Failed to fetch schedules:", error);
+      }
+    };
+
+    fetchSchedules();
+  }, []);
 
   return (
     <div className="container mx-auto my-8">
       <div className="bg-white rounded-3xl shadow-md overflow-hidden">
         <div className="flex flex-col sm:flex-row">
-          {/* Title section */}
           <div className="bg-blue-50 p-4 sm:p-6 flex items-center justify-center sm:justify-start sm:rounded-l-3xl">
             <h2 className="font-black text-blue-800 text-center sm:text-left text-xl sm:text-2xl leading-tight">
               TODAY
@@ -43,7 +60,6 @@ const Schedule = () => {
             </h2>
           </div>
 
-          {/* Swiper section */}
           <div className="flex-1 flex items-center overflow-hidden">
             <Swiper
               modules={[Navigation, Pagination]}
@@ -52,16 +68,23 @@ const Schedule = () => {
               onSwiper={(swiper) => (swiperRef.current = swiper)}
               className="!w-full"
             >
-              {schedules.map((schedule, index) => (
-                <SwiperSlide key={index} className="!w-auto">
-                  <div className="px-4 py-4 sm:py-6 border-r border-gray-100 h-full flex flex-col justify-center hover:bg-blue-50/30 transition-colors rounded-lg">
-                    <p className="text-sm text-gray-500">{schedule.time}</p>
-                    <p className="font-bold text-gray-800 line-clamp-1">
-                      {schedule.title}
-                    </p>
-                  </div>
-                </SwiperSlide>
-              ))}
+              {Array.isArray(schedules) &&
+                schedules.map((schedule, index) => (
+                  <SwiperSlide key={index} className="!w-auto">
+                    <div className="px-4 py-4 sm:py-6 border-r border-gray-100 h-full flex flex-col justify-center hover:bg-blue-50/30 transition-colors rounded-lg">
+                      <div className="flex items-center gap-2">
+                        <p className="flex items-center gap-2 text-sm text-gray-500">
+                          {schedule.jam_awal}{" "}
+                          <hr className="w-5 boder border-gray-300" />
+                          {schedule.jam_akhir}
+                        </p>
+                      </div>
+                      <p className="font-bold text-gray-800 line-clamp-1">
+                        {schedule.acara}
+                      </p>
+                    </div>
+                  </SwiperSlide>
+                ))}
             </Swiper>
           </div>
 
