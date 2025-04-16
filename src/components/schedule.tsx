@@ -71,11 +71,11 @@ const Schedule = () => {
               {Array.isArray(schedules) &&
                 schedules.map((schedule, index) => (
                   <SwiperSlide key={index} className="!w-auto">
-                    <div className="px-4 py-4 sm:py-6 border-r border-gray-100 h-full flex flex-col justify-center hover:bg-blue-50/30 transition-colors rounded-lg">
+                    <div className="px-4 py-4 sm:py-6 border-r border-gray-300 h-full flex flex-col justify-center hover:bg-blue-50/30 transition-colors">
                       <div className="flex items-center gap-2">
                         <p className="flex items-center gap-2 text-sm text-gray-500">
-                          {schedule.jam_awal}{" "}
-                          <hr className="w-5 boder border-gray-300" />
+                          {schedule.jam_awal}
+                          <hr className="w-5 boder border-gray-200" />
                           {schedule.jam_akhir}
                         </p>
                       </div>
