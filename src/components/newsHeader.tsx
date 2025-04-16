@@ -30,14 +30,13 @@ export const NewsHeader = ({
   waktu,
   kategori,
 }: NewsDataProps) => {
-  // Safely handle HTML content
   const markup = { __html: deskripsi };
 
   return (
     <div className="container mx-auto py-6">
       <Card className="overflow-hidden border-0 shadow-lg">
         <div className="md:flex">
-          <div className="md:w-1/2 h-full md:h-auto relative">
+          <div className="md:w-1/2 h-[300px] md:h-96 relative">
             <Image
               src={img1}
               alt={judul}

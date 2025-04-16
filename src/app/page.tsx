@@ -61,7 +61,7 @@ export default function Home() {
         </div>
         <Program />
       </div>
-      <div >
+      <div>
         <div className="bg-white py-20 px-3">
           <div>
             <CarouselCompanyLogo />
