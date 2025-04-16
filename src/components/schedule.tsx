@@ -87,8 +87,6 @@ const Schedule = () => {
                 ))}
             </Swiper>
           </div>
-
-          {/* Navigation buttons */}
           <div className="flex justify-end items-center p-3 bg-gray-50 sm:bg-white sm:rounded-r-3xl">
             <button
               className="p-2 rounded-full hover:bg-blue-100 transition-colors"
