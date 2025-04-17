@@ -1,4 +1,5 @@
-"use client";
+'use client' 
+
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import axios from "axios";
@@ -77,6 +78,8 @@ const SeputarUdinus = () => {
                     <Image
                       src="/images/program.jpg"
                       alt="Dummy Thumbnail"
+                      width={320}
+                      height={180}
                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                     />
 
