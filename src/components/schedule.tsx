@@ -73,10 +73,11 @@ const Schedule = () => {
                     <div className="flex items-center gap-2">
                       <p className="flex items-center gap-2 text-sm text-gray-500">
                         {schedule.jam_awal}
+                        <span className="text-gray-400">-</span>
                         {schedule.jam_akhir}
                       </p>
                     </div>
-                    <p className="font-bold text-gray-800 line-clamp-1">
+                    <p className="text-lg md:text-md font-bold text-gray-800 line-clamp-1">
                       {schedule.acara}
                     </p>
                   </div>
