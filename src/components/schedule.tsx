@@ -35,11 +35,10 @@ const Schedule = () => {
   useEffect(() => {
     const fetchSchedules = async () => {
       try {
-        const response = await axios.get<ScheduleItem>(
-          `${BASE_URL}/jadwal-acara/564`
+        const response = await axios.get<{ data: ScheduleItem[] }>(
+          `${BASE_URL}/jadwal-acara`
         );
-        console.log("Fetched Data:", response.data); // Debug log
-        setSchedules([response.data]);
+        setSchedules(response.data.data);
       } catch (error) {
         console.error("Failed to fetch schedules:", error);
       }
@@ -68,23 +67,21 @@ const Schedule = () => {
               onSwiper={(swiper) => (swiperRef.current = swiper)}
               className="!w-full"
             >
-              {Array.isArray(schedules) &&
-                schedules.map((schedule, index) => (
-                  <SwiperSlide key={index} className="!w-auto">
-                    <div className="px-4 py-4 sm:py-6 border-r border-gray-300 h-full flex flex-col justify-center hover:bg-blue-50/30 transition-colors">
-                      <div className="flex items-center gap-2">
-                        <p className="flex items-center gap-2 text-sm text-gray-500">
-                          {schedule.jam_awal}
-                          <hr className="w-5 boder border-gray-200" />
-                          {schedule.jam_akhir}
-                        </p>
-                      </div>
-                      <p className="font-bold text-gray-800 line-clamp-1">
-                        {schedule.acara}
+              {schedules.map((schedule, index) => (
+                <SwiperSlide key={index} className="!w-auto">
+                  <div className="px-4 py-4 sm:py-6 border-r border-gray-300 h-full flex flex-col justify-center hover:bg-blue-50/30 transition-colors">
+                    <div className="flex items-center gap-2">
+                      <p className="flex items-center gap-2 text-sm text-gray-500">
+                        {schedule.jam_awal}
+                        {schedule.jam_akhir}
                       </p>
                     </div>
-                  </SwiperSlide>
-                ))}
+                    <p className="font-bold text-gray-800 line-clamp-1">
+                      {schedule.acara}
+                    </p>
+                  </div>
+                </SwiperSlide>
+              ))}
             </Swiper>
           </div>
           <div className="flex justify-end items-center p-3 bg-gray-50 sm:bg-white sm:rounded-r-3xl">

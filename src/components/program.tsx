@@ -28,10 +28,10 @@ export const Program = () => {
   useEffect(() => {
     const fetchPrograms = async () => {
       try {
-        const response = await axios.get<Iprogram[]>(
+        const response = await axios.get(
           `${BASE_URL}/our-programs`
         );
-        setPrograms(response.data);
+        setPrograms(response.data.data);
       } catch (err) {
         let errorMessage = "Failed to load programs";
 
