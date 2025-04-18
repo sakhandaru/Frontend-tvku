@@ -36,11 +36,11 @@ export const OurExpertise = () => {
     const fetchPrograms = async () => {
       try {
         const [response1, response2] = await Promise.all([
-          axios.get<Iexpertise1[]>(`${BASE_URL}/home/our-expertise1`),
-          axios.get<Iexpertise2[]>(`${BASE_URL}/home/our-expertise2`),
+          axios.get<{ data: Iexpertise1[] }>(`${BASE_URL}/home/our-expertise1`),
+          axios.get<{ data: Iexpertise1[] }>(`${BASE_URL}/home/our-expertise2`),
         ]);
-        setExpertise1(response1.data);
-        setExpertise2(response2.data);
+        setExpertise1(response1.data.data);
+        setExpertise2(response2.data.data);
       } catch (error) {
         console.error("Error fetching expertise data:", error);
       }

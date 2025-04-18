@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React from "react";
 import Image from "next/image";
@@ -30,8 +30,10 @@ export const About = () => {
   useEffect(() => {
     const fetchPrograms = async () => {
       try {
-        const response = await axios.get<Iabout[]>(`${BASE_URL}/home/who-we-are`);
-        setAbout(response.data);
+        const response = await axios.get<{ data: Iabout[] }>(
+          `${BASE_URL}/home/who-we-are`
+        );
+        setAbout(response.data.data);
       } catch (err) {
         let errorMessage = "Failed to load programs";
 
@@ -95,7 +97,7 @@ export const About = () => {
             </div>
           </div>
           <div className="grid grid-cols-1 gap-5  md:grid-cols-3 md:container md:mx-auto ">
-          <Card className="flex flex-col-1 items-center justify-center gap-5 p-5 ">
+            <Card className="flex flex-col-1 items-center justify-center gap-5 p-5 ">
               <HeartHandshake size={50} className="text-blue-600 min-w-20 " />
               <div className="">
                 <h1 className="text-xl font-bold">{about.motto1}</h1>
