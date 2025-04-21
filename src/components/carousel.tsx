@@ -14,20 +14,20 @@ import "swiper/css/pagination";
 
 function Carousel() {
   return (
-      <Swiper
-        modules={[Navigation, Pagination]}
-        spaceBetween={0}
-        slidesPerView={1}
-        navigation
-        pagination={{ clickable: true }}
-      >
-        <SwiperSlide >
-          <Image src={img1} alt="gambar1" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Image src={img2} alt="gambar2" />
-        </SwiperSlide>
-      </Swiper>
+    <Swiper
+      modules={[Navigation, Pagination]}
+      spaceBetween={0}
+      slidesPerView={1}
+      navigation
+      pagination={{ clickable: true }}
+    >
+      <SwiperSlide>
+        <Image src={img1} alt="gambar1" />
+      </SwiperSlide>
+      <SwiperSlide>
+        <Image src={img2} alt="gambar2" />
+      </SwiperSlide>
+    </Swiper>
   );
 }
 
