@@ -66,7 +66,7 @@ function NewsPage() {
             axios.get<{ data: Ikategori[]}>(`${BASE_URL}/kategori`),
           ]);
 
-          setNewsData(latestNewsResponse.data.data);
+        setNewsData(latestNewsResponse.data.data);
         setApiData(newsResponse.data);
         setKategoriData(kategoriResponse.data.data || []);
       } catch (error) {
@@ -103,7 +103,6 @@ function NewsPage() {
 
   const { data: beritaData, last_page } = apiData;
 
-  // Generate pagination items
   const getPaginationItems = () => {
     const items = [];
     const maxVisiblePages = 5;
@@ -128,7 +127,6 @@ function NewsPage() {
       }
     }
 
-    // Previous button
     items.push(
       <PaginationItem key="prev">
         <PaginationPrevious
@@ -144,7 +142,6 @@ function NewsPage() {
       </PaginationItem>
     );
 
-    // First page
     if (startPage > 1) {
       items.push(
         <PaginationItem key={1}>
@@ -169,7 +166,6 @@ function NewsPage() {
       }
     }
 
-    // Page numbers
     for (let page = startPage; page <= endPage; page++) {
       items.push(
         <PaginationItem key={page}>
@@ -187,7 +183,6 @@ function NewsPage() {
       );
     }
 
-    // Last page
     if (endPage < last_page) {
       if (endPage < last_page - 1) {
         items.push(
@@ -238,12 +233,12 @@ function NewsPage() {
         <div className="grid gap-6 lg:grid-cols-3">
           <div className="lg:col-span-2">
             <FeaturedNews
-              cover={beritaData[0].cover || ""}
-              judul={beritaData[0].judul || ""}
-              deskripsi={beritaData[0].deskripsi || ""}
-              waktu={beritaData[0].waktu || ""}
+              cover={newsData[0]?.cover || ""}
+              judul={newsData[0]?.judul || ""}
+              deskripsi={newsData[0]?.deskripsi || ""}
+              waktu={newsData[0]?.waktu || ""}
               kategori={
-                beritaData[0].kategori || {
+                newsData[0]?.kategori || {
                   id_kategori: 0,
                   nama: "",
                   slug: "",
