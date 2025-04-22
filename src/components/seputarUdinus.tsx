@@ -1,23 +1,23 @@
-'use client' 
+"use client";
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import axios from "axios";
 
+interface Title {
+  id: number;
+  judul: string;
+}
+
+interface Item {
+  id: number;
+  id_slides_title: number;
+  link: string;
+  thumbnail: string;
+  teks: string;
+}
+
 const SeputarUdinus = () => {
-  interface Title {
-    id: number;
-    judul: string;
-  }
-
-  interface Item {
-    id: number;
-    id_slides_title: number;
-    link: string;
-    thumbnail: string;
-    teks: string;
-  }
-
   const [titles, setTitles] = useState<Title[]>([]);
   const [items, setItems] = useState<Item[]>([]);
   const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -29,7 +29,7 @@ const SeputarUdinus = () => {
           axios.get(`${BASE_URL}/seputar-dinus-slides-title`),
           axios.get(`${BASE_URL}/seputar-dinus-slider`),
         ]);
-        setTitles(resTitles.data);
+        setTitles(resTitles.data.data);
         setItems(resItems.data.data);
       } catch (err) {
         console.error("Error fetching data:", err);
@@ -70,11 +70,6 @@ const SeputarUdinus = () => {
                     rel="noopener noreferrer"
                     className="group relative min-w-[320px] max-w-[320px] aspect-video rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
                   >
-                    {/* <img
-                      src={`/images/programTV/${item.thumbnail || "sapaDosen.png"}`}
-                      alt={item.teks}
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                    /> */}
                     <Image
                       src="/images/program.jpg"
                       alt="Dummy Thumbnail"
@@ -106,7 +101,9 @@ const SeputarUdinus = () => {
                   </a>
                 ))
               ) : (
-                <div className="text-gray-500 italic">Belum ada konten tersedia.</div>
+                <div className="text-gray-500 italic">
+                  Belum ada konten tersedia.
+                </div>
               )}
             </div>
           </div>
