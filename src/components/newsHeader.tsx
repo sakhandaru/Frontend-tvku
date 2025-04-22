@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import img1 from "../../public/images/bahlil.jpeg";
+// import img1 from "../../public/images/bahlil.jpeg";
 
 interface NewsKategoriProps {
   id_kategori: number;
@@ -28,6 +28,7 @@ export const NewsHeader = ({
   judul,
   deskripsi,
   waktu,
+  cover,
   kategori,
 }: NewsDataProps) => {
   const markup = { __html: deskripsi };
@@ -38,7 +39,7 @@ export const NewsHeader = ({
         <div className="md:flex">
           <div className="md:w-1/2 h-[300px] md:h-96 relative">
             <Image
-              src={img1}
+              src={cover}
               alt={judul}
               fill
               className="object-cover rounded-t-lg md:rounded-t-none md:rounded-l-lg"

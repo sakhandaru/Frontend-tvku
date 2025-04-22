@@ -6,7 +6,6 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
 import axios from "axios";
-import img1 from "../../public/images/bahlil.jpeg";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -112,7 +111,7 @@ export const Program = () => {
               <div className="group relative rounded-md overflow-hidden transition-transform duration-300 hover:scale-[1.05] hover:z-10">
                 <div className="relative" style={{ aspectRatio: "314/444" }}>
                   <Image
-                    src={img1}
+                    src={program.thumbnail}
                     alt={program.judul}
                     fill
                     className="object-cover"
