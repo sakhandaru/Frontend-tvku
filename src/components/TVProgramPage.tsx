@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import { useEffect, useState } from "react";
 import axios from "axios";
+// import img1 from "../../public/images/bahlil.jpeg";
 import "swiper/css";
 
 interface Iprogram {
