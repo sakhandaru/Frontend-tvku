@@ -7,12 +7,11 @@ import axios from "axios";
 // import img1 from "../../public/images/bahlil.jpeg";
 import "swiper/css";
 
-interface Iprogram {
-  id: number;
-  thumbnail: string;
-  judul: string;
-  deskripsi: string;
-  link: string;
+
+
+function truncateWords(text: string, limit: number) {
+  const words = text.split(" ");
+  return words.length > limit ? words.slice(0, limit).join(" ") + "..." : text;
 }
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -102,7 +101,7 @@ export default function TVProgramUI() {
             <div
               className="absolute top-0 left-0 w-full h-full 
               bg-black/60 backdrop-blur-md text-white rounded-xl p-4 
-              opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
+              opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 shadow-lg"
             >
               <h4 className="font-semibold text-lg">{data.judul}</h4>
               <p className="mt-2 text-sm">{data.deskripsi}</p>
