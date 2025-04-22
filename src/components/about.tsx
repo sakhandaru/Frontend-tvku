@@ -28,7 +28,7 @@ export const About = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchPrograms = async () => {
+    const fetchAbout = async () => {
       try {
         const response = await axios.get<{ data: Iabout[] }>(
           `${BASE_URL}/home/who-we-are`
@@ -54,7 +54,7 @@ export const About = () => {
       }
     };
 
-    fetchPrograms();
+    fetchAbout();
   }, []);
 
   if (error) {

@@ -1,99 +1,111 @@
 "use client";
 
-import React, { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay } from 'swiper/modules';
+import { Autoplay } from "swiper/modules";
+import { useEffect, useState } from "react";
+import axios from "axios";
 import "swiper/css";
 
-const dummyData = [
-  {
-    title: "Dune: Part Two",
-    description:
-      "Dengan gravitasi yang lebih menarik, sapa dosen menyapa mahasiswa Universitas Dian Nuswantoro dengan memberikan materi pembelajaran yang berbeda di setiap episodenya, hanya dengan menyaksikannya melalui tayangan TVKU dan Youtube.",
-    image: "images/program.jpg",
-  },
-  {
-    title: "Oppenheimer",
-    description:
-      "Thriller, Detective Dengan gravitasi yang lebih menarik, sapa dosen menyapa mahasiswa Universitas Dian Nuswantoro dengan memberikan materi pembelajaran yang berbeda di setiap episodenya, hanya dengan menyaksikannya melalui tayangan TVKU dan Youtube.",
-    image: "images/bahlil.jpeg",
-  },
-  {
-    title: "The Witcher",
-    description:
-      "Drama, Adventure Dengan gravitasi yang lebih menarik, sapa dosen menyapa mahasiswa Universitas Dian Nuswantoro dengan memberikan materi pembelajaran yang berbeda di setiap episodenya, hanya dengan menyaksikannya melalui tayangan TVKU dan Youtube.",
-    image: "images/fotogedung.jpg",
-  },
-  {
-    title: "Dune: Part Two",
-    description:
-      "Science Fiction, Adventure Dengan gravitasi yang lebih menarik, sapa dosen menyapa mahasiswa Universitas Dian Nuswantoro dengan memberikan materi pembelajaran yang berbeda di setiap episodenya, hanya dengan menyaksikannya melalui tayangan TVKU dan Youtube.",
-    image: "images/programTV/campusOnTv.png",
-  },
-  {
-    title: "Oppenheimer",
-    description:
-      "Thriller, Detective Dengan gravitasi yang lebih menarik, sapa dosen menyapa mahasiswa Universitas Dian Nuswantoro dengan memberikan materi pembelajaran yang berbeda di setiap episodenya, hanya dengan menyaksikannya melalui tayangan TVKU dan Youtube.",
-    image: "images/programTV/kabarSepekan.jpg",
-  },
-  {
-    title: "The Witcher",
-    description:
-      "Drama, Adventure Dengan gravitasi yang lebih menarik, sapa dosen menyapa mahasiswa Universitas Dian Nuswantoro dengan memberikan materi pembelajaran yang berbeda di setiap episodenya, hanya dengan menyaksikannya melalui tayangan TVKU dan Youtube.",
-    image: "images/fotogedung.jpg",
-  },
-];
-
-function truncateWords(text: string, limit: number) {
-  const words = text.split(" ");
-  return words.length > limit ? words.slice(0, limit).join(" ") + "..." : text;
+interface Iprogram {
+  id: number;
+  thumbnail: string;
+  judul: string;
+  deskripsi: string;
+  link: string;
 }
 
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
 export default function TVProgramUI() {
-  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [program, setProgram] = useState<Iprogram[]>([]);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchPrograms = async () => {
+      try {
+        const response = await axios.get<{ data: Iprogram[] }>(
+          `${BASE_URL}/our-programs`
+        );
+        setProgram(response.data.data);
+      } catch (err) {
+        let errorMessage = "Failed to load programs";
+
+        if (axios.isAxiosError(err)) {
+          if (err.code === "ECONNABORTED") {
+            errorMessage = "Request timeout. Please try again.";
+          } else if (!err.response) {
+            errorMessage = "Network error. Please check your connection.";
+          } else {
+            errorMessage = err.response.data?.message || err.message;
+          }
+        } else if (err instanceof Error) {
+          errorMessage = err.message;
+        }
+
+        setError(errorMessage);
+        console.error("API Error:", err);
+      }
+    };
+    fetchPrograms();
+  }, []);
+
+  if (error) {
+    return (
+      <div className="container mx-auto mt-15">
+        <h1 className="text-2xl md:text-4xl font-bold">About</h1>
+        <div className="mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+          <p>Error: {error}</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="mt-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+          >
+            Try Again
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-7xl mx-auto pt-28 pb-24 px-4 py-6 ">
-      {/* Hero Carousel */}
-      <Swiper slidesPerView={1} loop={true} autoplay={{ delay: 1000 }} modules={[Autoplay]}>
-        {dummyData.map((movie, index) => (
+      <Swiper slidesPerView={1} loop={true} modules={[Autoplay]}>
+        {program.map((data, index) => (
           <SwiperSlide key={index}>
             <div
               className="h-96 rounded-2xl overflow-hidden bg-cover bg-center relative"
-              style={{ backgroundImage: `url(${movie.image})` }}
+              style={{ backgroundImage: `url(${data.thumbnail})` }}
             >
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/70 to-transparent p-6">
-                <h2 className="text-white text-3xl font-bold">{movie.title}</h2>
+                <h2 className="text-white text-3xl font-bold">{data.judul}</h2>
               </div>
             </div>
           </SwiperSlide>
         ))}
       </Swiper>
 
-      {/* Trending Now */}
       <h3 className="text-xl font-semibold mt-10 mb-4">Program TVKU</h3>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {dummyData.map((movie, index) => (
+        {program.map((data, index) => (
           <div key={index} className="relative group">
             <div
               className="h-40 rounded-xl overflow-hidden bg-cover bg-center relative"
-              style={{ backgroundImage: `url(${movie.image})` }}
+              style={{ backgroundImage: `url(${data.thumbnail})` }}
             >
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/70 to-transparent px-4 py-2">
-                <h4 className="text-white font-semibold">{movie.title}</h4>
+                <h4 className="text-white font-semibold">{data.judul}</h4>
               </div>
             </div>
-            <p className="mt-2 text-sm text-gray-700">{truncateWords(movie.description, 20)}</p>
+            <p className="mt-2 text-sm text-gray-700 line-clamp-3">{data.deskripsi}</p>
 
             {/* Hover Overlay */}
-            {/* Hover Overlay */}
-            <div className="absolute top-0 left-0 w-full h-full 
+            <div
+              className="absolute top-0 left-0 w-full h-full 
               bg-black/60 backdrop-blur-md text-white rounded-xl p-4 
-              opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
-              <h4 className="font-semibold text-lg">{movie.title}</h4>
-              <p className="mt-2 text-sm">{movie.description}</p>
+              opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
+            >
+              <h4 className="font-semibold text-lg">{data.judul}</h4>
+              <p className="mt-2 text-sm">{data.deskripsi}</p>
             </div>
-
           </div>
         ))}
       </div>
