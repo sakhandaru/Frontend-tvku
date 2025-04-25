@@ -20,6 +20,7 @@ interface Item {
 const SeputarUdinus = () => {
   const [titles, setTitles] = useState<Title[]>([]);
   const [items, setItems] = useState<Item[]>([]);
+
   const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
   useEffect(() => {
