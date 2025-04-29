@@ -40,7 +40,7 @@ export function ChatButton() {
     <>
       <Button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 rounded-full w-14 h-14 bg-green-600 hover:bg-green-700 shadow-lg z-50 flex items-center justify-center"
+        className="fixed bottom-6 right-6 rounded-full w-14 h-14 bg-[#0C71C3] shadow-lg z-50 flex items-center justify-center"
       >
         <MessageCircle className="h-6 w-6" />
       </Button>
@@ -106,9 +106,9 @@ export function ChatButton() {
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   placeholder="Ketik pesan..."
-                  className="flex-1 rounded-full border-gray-300 focus:border-green-500 focus:ring-green-500"
+                  className="flex-1 rounded-full border-gray-300"
                 />
-                <Button type="submit" size="icon" className="rounded-full bg-green-600 hover:bg-green-700 h-12 w-12">
+                <Button type="submit" size="icon" className="rounded-full bg-[#0C71C3] h-12 w-12">
                   <Send className="h-5 w-5" />
                 </Button>
               </form>
