@@ -56,9 +56,12 @@ const SeputarUdinus = () => {
               <h2 className="text-2xl font-semibold text-gray-800">
                 {title.judul}
               </h2>
-              <a href="#" className="text-sm text-blue-600 hover:underline">
+                <a
+                href={`/seputar_udinus/${title.id}`}
+                className="text-sm text-blue-600 hover:underline"
+                >
                 more..
-              </a>
+                </a>
             </div>
 
             <div className="flex overflow-x-auto gap-6 pb-2 scrollbar-hide">
@@ -72,8 +75,8 @@ const SeputarUdinus = () => {
                     className="group relative min-w-[320px] max-w-[320px] aspect-video rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
                   >
                     <Image
-                      src="/images/program.jpg"
-                      alt="Dummy Thumbnail"
+                      src={item.thumbnail}
+                      alt={item.teks}
                       width={320}
                       height={180}
                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
