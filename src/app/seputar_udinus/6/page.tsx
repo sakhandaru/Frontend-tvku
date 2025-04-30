@@ -4,7 +4,7 @@ const SeputarUdinusPage = () => {
     return (
         <div>
             <div className='mt-72'></div>
-            <h1>1</h1>
+            <h1>6</h1>
             <p>Welcome to the Seputar Udinus page!</p>
         </div>
     );
