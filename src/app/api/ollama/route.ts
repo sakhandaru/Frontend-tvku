@@ -13,9 +13,19 @@ interface IBerita {
 export async function POST(req: NextRequest) {
   try {
     const { prompt } = await req.json()
-    let userPrompt = prompt
 
-    if (userPrompt.toLowerCase().includes("berita")) {
+    const systemPrompt = `anda adalah LIL BAH AI. Aturan:
+    1. Fokus pada topik berita dan informasi umum
+    2. Jangan bahas topik sensitif
+    3. Jawab dalam bahasa yang sopan dan informatif
+    4. Jika tidak tahu jawabannya, katakan dengan sopan kalau kurang tahu
+    5. Jika ada berita terkini, sertakan dalam jawaban
+
+    `;
+
+    let fullPrompt = `${systemPrompt}\n\nPertanyaan: ${prompt}`;
+
+    if (prompt.toLowerCase().includes("berita")) {
       const beritaRes = await axios.get(`https://apidev.tvku.tv/api/berita`)
       const beritaData = beritaRes.data.data
 
@@ -24,7 +34,7 @@ export async function POST(req: NextRequest) {
           return `• ${item.judul} (${item.kategori?.nama ?? 'Uncategorized'}) - ${item.deskripsi}`
         }).join('\n')
 
-        userPrompt += `\n\n[Berita Terkini]:\n${beritaFormatted}`
+        fullPrompt += `\n\n[Berita Terkini]:\n${beritaFormatted}`
       }
     }
 
@@ -33,7 +43,7 @@ export async function POST(req: NextRequest) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         model: 'llama3.2',
-        prompt: userPrompt,
+        prompt: fullPrompt,
         stream: false,
       }),
     })

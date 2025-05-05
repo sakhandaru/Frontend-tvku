@@ -1,3 +1,6 @@
+import React from "react";
+import Image from "next/image";
+
 export default function PosisiIklan() {
   const ads = [
     { title: "Masthead", image: "/images/iklan/posisiIklan.png" },
@@ -15,7 +18,7 @@ export default function PosisiIklan() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl">
         {ads.map((ad, index) => (
           <div key={index} className="bg-white rounded-lg shadow-md p-4 flex flex-col items-center">
-            <img 
+            <Image 
               src={ad.image} 
               alt={ad.title} 
               className="w-full h-48 object-cover rounded-md"

@@ -7,11 +7,11 @@ import axios from "axios";
 // import img1 from "../../public/images/bahlil.jpeg";
 import "swiper/css";
 
-
-
-function truncateWords(text: string, limit: number) {
-  const words = text.split(" ");
-  return words.length > limit ? words.slice(0, limit).join(" ") + "..." : text;
+interface Iprogram {
+  id: number;
+  judul: string;
+  deskripsi: string;
+  thumbnail: string;
 }
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;

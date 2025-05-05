@@ -33,13 +33,13 @@ export default function NewsCard({
   const markup = { __html: deskripsi };
   return (
     <Card className="overflow-hidden">
-      <div className="aspect-video relative">
+      <div className="relative">
         <Image
           src={cover}
           alt="bahlil"
           width={500}
           height={500}
-          className="object-cover"
+          className="object-cover aspect-video"
         />
         <Badge className="absolute top-2 left-2">{kategori?.nama}</Badge>
       </div>
