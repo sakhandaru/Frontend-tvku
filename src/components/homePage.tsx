@@ -47,7 +47,7 @@ export default function HomePage() {
             kategori={newsdatas[0].kategori}
           />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {newsdatas.slice(1, 4).map((news, index) => (
+            {newsdatas.slice(1, 5).map((news, index) => (
               <NewsCard
                 key={index}
                 cover={news.cover}
