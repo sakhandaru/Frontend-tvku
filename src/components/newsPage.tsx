@@ -105,7 +105,7 @@ function NewsPage() {
 
   const getPaginationItems = () => {
     const items = [];
-    const maxVisiblePages = 5;
+    const maxVisiblePages = 3;
     let startPage, endPage;
 
     if (last_page <= maxVisiblePages) {

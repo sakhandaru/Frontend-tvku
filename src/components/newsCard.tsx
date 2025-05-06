@@ -44,7 +44,7 @@ export default function NewsCard({
         <Badge className="absolute top-2 left-2">{kategori?.nama}</Badge>
       </div>
       <CardHeader className="p-4">
-        <CardTitle className="line-clamp-2 hover:text-primary cursor-pointer">
+        <CardTitle className="line-clamp-1 hover:text-primary cursor-pointer">
           {judul}
         </CardTitle>
         <CardDescription className="line-clamp-2">
