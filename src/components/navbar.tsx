@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { BsBroadcast } from "react-icons/bs";
@@ -9,18 +9,37 @@ import { FiMenu, FiX } from "react-icons/fi";
 const Navbar = () => {
   const [scroll, setScroll] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLLIElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
       setScroll(window.scrollY > 50);
     };
 
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsDropdownOpen(false);
+      }
+    };
+
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("mousedown", handleClickOutside);
+    };
   }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen((prev) => !prev);
   };
 
   return (
@@ -66,17 +85,27 @@ const Navbar = () => {
             <li>
               <Link href="/seputarUdinus">Seputar UDINUS</Link>
             </li>
-            <li className="relative group">
-              <Link href="#">Lainnya ▾</Link>
-              <ul className="absolute hidden group-hover:block bg-white shadow-lg py-2 w-40 mt-2">
-                <li className="px-4 py-2 hover:bg-gray-100">
-                  <Link href="/digitalMarketing">Digital Marketing</Link>
-                </li>
-                <li className="px-4 py-2 hover:bg-gray-100">
-                  <Link href="/sales">Sales</Link>
-                </li>
-              </ul>
+
+            {/* Dropdown on Click */}
+            <li ref={dropdownRef} className="relative">
+              <button
+                onClick={toggleDropdown}
+                className="focus:outline-none"
+              >
+                Lainnya ▾
+              </button>
+              {isDropdownOpen && (
+                <ul className="absolute bg-white shadow-lg py-2 w-40 mt-2 z-20">
+                  <li className="px-4 py-2 hover:bg-gray-100">
+                    <Link href="/digitalMarketing">Digital Marketing</Link>
+                  </li>
+                  <li className="px-4 py-2 hover:bg-gray-100">
+                    <Link href="/sales">Sales</Link>
+                  </li>
+                </ul>
+              )}
             </li>
+
             <li className="md:hidden mt-4">
               <Link href="/liveStream">
                 <button className="bg-red-500 text-white px-4 py-2 rounded-full font-semibold hover:bg-red-600 transition-all flex items-center gap-2 w-full justify-center">

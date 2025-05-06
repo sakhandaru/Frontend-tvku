@@ -19,6 +19,8 @@ export default function PosisiIklan() {
         {ads.map((ad, index) => (
           <div key={index} className="bg-white rounded-lg shadow-md p-4 flex flex-col items-center">
             <Image 
+              width={300}
+              height={200}
               src={ad.image} 
               alt={ad.title} 
               className="w-full h-48 object-cover rounded-md"
